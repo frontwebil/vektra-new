@@ -1,0 +1,442 @@
+/* ============================================================
+   Планшет: до 1199px. Макет переходить на 2 колонки.
+   1rem = 10px при ширині 834px.
+   ============================================================ */
+@media (max-width:1199px){
+  html{font-size:min(calc(100vw / 83.4),11.5px)}
+  :root{--m:3.2rem}
+  .g4::before,.g3::before{background-image:linear-gradient(var(--line2),var(--line2)),linear-gradient(var(--line2),var(--line2)),linear-gradient(var(--line2),var(--line2));background-position:0 0,50% 0,100% 0}
+  .d180{font-size:12rem;line-height:12rem}
+  .d140{font-size:9.6rem;line-height:9.6rem}
+  .d120{font-size:8.8rem;line-height:8.8rem}
+  .d100{font-size:7.6rem;line-height:7.6rem}
+  .d72,.h1{font-size:6rem;line-height:6rem}
+  .h2{font-size:4.4rem;line-height:4.4rem}
+
+  /* Шапка */
+  .hd{top:1.6rem;width:auto;left:var(--m);right:var(--m);margin:0}
+  .hd__logo{margin-right:5rem}
+  .hd__services{padding-top:2.4rem}
+  .hd__services a{font-size:1.8rem;line-height:2.2rem;white-space:normal}
+  .hd__services{gap:1.2rem 2rem;padding-top:0;padding-bottom:2.4rem;margin-bottom:2.4rem}
+  .hd__services a{color:var(--w50)}
+  .hd__panel-in{max-height:calc(100svh - 9.6rem);overflow-y:auto}
+  .hd.is-open .hd__panel-in{overscroll-behavior:contain}
+
+  /* Футер */
+  .ft{height:auto}
+  .ft__top{grid-template-columns:1fr 1fr;height:auto}
+  .ft__top>*{padding:4rem 0;border-left:0;border-top:1px solid var(--line2)}
+  .ft__top>*:first-child{grid-column:span 2;border-top:0;padding:4rem 0 4rem 3.2rem}
+  .ft__logo{font-size:12rem;line-height:12rem}
+  .ft__top>*:nth-child(3){border-left:1px solid var(--line2)}
+  .ft__top>*:nth-child(4){grid-column:span 2}
+  .ft__list a{white-space:normal}
+  .ft__bot{padding:0 3.2rem;gap:2rem}
+
+  /* Заголовки секцій */
+  .sh{grid-template-columns:1fr 1fr;grid-template-rows:auto auto;row-gap:4rem;min-height:0;padding:8rem 0 6rem}
+  .sh__l{grid-column:1;grid-row:1}
+  .sh__r{grid-column:2;grid-row:1}
+  .sh__h{grid-column:1 / -1;grid-row:2;justify-self:start}
+  .sh--c .sh__h{text-align:left;justify-self:start}
+  .shead{height:auto;padding:3.2rem 0 4rem}
+  .sh .ln,.hs__head .ln,.rv-head .ln,.fq__l .ln{white-space:normal}
+  .rv-head{flex-direction:column-reverse;gap:4rem;min-height:0;padding:8rem 0 6rem}
+
+  /* Перші екрани переходять зі стартового розташування в потік */
+  .hh,.sv-hero,.bd-hero,.pj-hero,.ab-hero,.bl-hero,.nf{height:auto;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding:14rem var(--m) 4rem;gap:4rem}
+  .hh__list,.hh__side,.hh__t,.sv-hero__h,.sv-hero__side,.sv-hero__crumbs,.bd-hero__cap,.bd-hero__side,.bd-hero__h,.bd-hero__crumbs,.pj-hero__label,.pj-hero__side,.pj-hero__h,.ab-hero__label,.ab-hero__p,.ab-hero__h,.bl-hero__label,.bl-hero__h,.bl-hero__p,.nf__h,.nf__go{position:relative;left:auto;right:auto;top:auto;bottom:auto;width:auto;z-index:2}
+  .hh .star,.sv-hero .star,.bd-hero .star,.pj-hero .star,.ab-hero .star,.bl-hero .star,.ct-hero .star,.cs-visual .star{display:none}
+  .hh{padding-top:12rem}
+  .hh__il{inset:6% -12% 42% -12%}
+  .hh__side{order:1;max-width:52rem;margin-top:auto}
+  .hh__list{order:2}
+  .hh__t{order:3;font-size:12rem;line-height:12rem}
+  .hh__m{width:3.6rem;height:3.6rem;top:.6rem}
+  .sv-hero__il,.bd-hero__il,.ab-hero__il,.nf__il{inset:8% 0 26% 0}
+  .sv-hero__side,.bd-hero__side{max-width:52rem}
+  .sv-hero__h{order:-1;margin-top:auto}
+  .bd-hero__cap{order:-2;margin-bottom:auto}
+  .bd-hero__h{order:-1}
+  .bd-hero__t,.sv-hero__h .ln{white-space:normal}
+  .ind1,.ind2{margin-left:6rem}
+  .pj-hero__label,.ab-hero__label,.bl-hero__label{order:-2;margin-bottom:auto}
+  .pj-hero__h{order:-1}
+  .ab-hero__p{max-width:52rem}
+  .ab-hero__h{order:-1}
+  .bl-hero__p{max-width:52rem}
+  .pj-hero__h .ln,.ab-hero__h .ln,.bl-hero__h .ln,.bl-cta__h .ln,.ab-cta__h .ln,.ct-l h1 .ln,.cs-hero__h .ln,.ar-hero__h .ln,.ar-quote .ln,.pj-cta__h .ln,.cs-ch__h .ln,.cs-res__h .ln,.ab-tm__h .ln,.ab-num__h .ln,.ab-who__h .ln,.bl-feat__t .ln,.cs-next__n .ln,.nf__h .ln,.hw__h .ln,.sv__h .ln,.sv-end .ln,.ca__r .ln{white-space:normal}
+  .pj-hero__h .ln,.ab-hero__h .ln,.bl-hero__h .ln,.bl-cta__h .ln,.ab-cta__h .ln,.cs-hero__h .ln,.ar-hero__h .ln,.ar-quote .ln,.cs-ch__h .ln,.cs-res__h .ln,.ab-tm__h .ln,.ct-l h1 .ln,.ab-who__h .ln,.ct-direct h2 .ln{margin-left:0!important}
+
+  /* Головна */
+  .ha__row,.ha__row--2{grid-template-columns:1fr;gap:3.2rem}
+  .ha__row--2>span:first-child{display:none}
+  .ha__go{justify-self:start}
+  .stats,.ap-g,.steps,.ab-pr__g{grid-template-columns:1fr 1fr}
+  .stat:nth-child(3),.ap-c:nth-child(3),.step:nth-child(3){border-left:0}
+  .stat:nth-child(n+3),.ap-c:nth-child(n+3),.step:nth-child(n+3){border-top:1px solid var(--line)}
+  .hs{padding:8rem 0}
+  .hs__head{grid-template-columns:1fr;margin-bottom:6rem}
+  .hs__head>span{display:none}
+  .hs__g{grid-template-columns:1fr;gap:4rem}
+  .hs__panel{position:relative;top:auto;height:56rem}
+  .hp__s{margin-left:0;max-width:52rem;width:auto;padding-top:6rem}
+  .pk__c{position:relative;top:auto;grid-template-columns:1fr;gap:3.2rem;padding:4rem 0}
+  .pk__t{padding:0}
+  .pk__m .media{height:auto;aspect-ratio:65/49.8}
+  .hw .banner{height:auto;min-height:50rem;padding:4rem;display:flex;flex-direction:column;gap:4rem;justify-content:flex-end}
+  .hw__h,.hw__go{position:relative;left:auto;top:auto;bottom:auto}
+  .hw__i1,.hw__i2{margin-left:0}
+  .rc__c{flex-basis:78%}
+  .rc__nav{display:flex;margin-top:3.2rem}
+  .step{min-height:46rem}
+  .step__wm{font-size:30rem;line-height:30rem}
+  .fq-sec{padding:8rem 0}
+  .fq{grid-template-columns:1fr;gap:6rem}
+  .fq__p{width:auto;max-width:52rem}
+  .ca-sec{padding:8rem 0}
+  .ca{height:auto;min-height:56rem;grid-template-columns:1fr;gap:4rem;padding:4rem}
+  .ca__l p{width:auto;max-width:44rem}
+  .ca__act{margin-top:3.2rem}
+  .ca__r{align-items:flex-start;gap:3.2rem}
+  .ca__tag{display:none}
+  .ca__r h2{width:auto}
+  .ca__r .ln{text-align:left}
+
+  /* Ціни */
+  .pc{grid-template-columns:1fr}
+  .pc__c{padding:4rem}
+
+  /* Послуги */
+  .sv{grid-template-columns:1fr 26rem;gap:3.2rem;padding:6rem 0}
+  .sv__il{height:24rem;width:26rem}
+  .sv-end{justify-content:flex-start;padding:8rem 0}
+  .bw__g{grid-template-columns:1fr 1fr;margin-left:0}
+  .bw__c:nth-child(2){margin-top:12rem}
+  .bw__c:nth-child(3){margin-top:0}
+  .bn{padding:8rem 0}
+  .bn__g{grid-template-columns:1fr;gap:4rem}
+  .bn__list{margin-top:6rem}
+  .bn__list li{grid-template-columns:7rem 1fr 1fr;gap:0 2rem}
+  .bn__list--2 li{grid-template-columns:7rem 1fr}
+  .bn__s{width:auto;max-width:52rem}
+  .bi{height:auto;padding:8rem var(--m);display:flex;flex-direction:column;gap:4rem}
+  .bi__il{inset:0;opacity:.75}
+  .bi__r,.bi__l{position:relative;left:auto;right:auto;top:auto}
+  .bi__g{position:relative;inset:auto;display:grid;grid-template-columns:1fr 1fr;gap:1.6rem}
+  .bi__c{position:relative;left:auto!important;top:auto!important;width:auto}
+  .bp__g{gap:1.6rem}
+  .bp__g .media{height:auto;aspect-ratio:65/49.8}
+
+  /* Проєкти */
+  .pj-filter,.bl-fbar{flex-direction:column;align-items:flex-start;height:auto;padding:2.4rem 0;gap:2rem}
+  .flt{justify-content:flex-start}
+  .fp{padding:6rem 0}
+  .fp--a .fp__grid,.fp--b .fp__grid,.fp--c .fp__panel{grid-template-columns:1fr;height:auto}
+  .fp--a .fp__txt,.fp--b .fp__txt{position:relative;top:auto;padding:0 0 3.2rem;gap:2.4rem}
+  .fp--a .media{height:auto;aspect-ratio:99/75}
+  .fp--b .media,.fp--c .media{height:auto;aspect-ratio:65/49.8}
+  .fp--b .fp__grid{gap:3.2rem}
+  .fp--b .fp__txt{padding-left:0}
+  .fp--c .fp__txt{gap:3.2rem}
+  .fp__top{flex-wrap:wrap;gap:1.6rem}
+  .pj-cta .banner{height:auto;min-height:56rem;display:flex;flex-direction:column;gap:4rem;padding:4rem;margin-bottom:8rem}
+  .pj-cta__h,.pj-cta__b{position:relative;left:auto;right:auto;top:auto;bottom:auto;width:auto}
+
+  /* Кейс */
+  .cs-crumbs{top:9.6rem}
+  .cs-hero{padding-top:15rem}
+  .cs-meta{grid-template-columns:1fr 1fr}
+  .cs-meta>div:nth-child(3){border-left:0;padding-left:0}
+  .cs-meta>div:nth-child(n+3){border-top:1px solid var(--line2)}
+  .cs-visual{height:auto;padding:4rem var(--m);display:flex;flex-direction:column;gap:3.2rem;align-items:flex-start}
+  .cs-visual .media{position:relative;left:auto;top:auto;width:100%;height:auto;aspect-ratio:99/75}
+  .cs-visual__cta{position:relative;left:auto;bottom:auto}
+  .cs-visual__il{inset:0 0 50% 40%}
+  .cs-sec{padding-bottom:8rem}
+  .cs-ov{grid-template-columns:1fr;gap:3.2rem;padding-top:4rem}
+  .cs-ov__body{padding-left:0}
+  .cs-ch__h,.cs-res__h{padding:4rem 0 6rem}
+  .cs-ch__grid{grid-template-columns:1fr 1fr}
+  .cs-ch__cell{height:36rem}
+  .cs-ch__cell:nth-child(3){border-left:0}
+  .cs-ch__cell:nth-child(n+3){border-top:1px solid var(--line2)}
+  .cs-ch__wm{font-size:26rem;line-height:26rem}
+  .cs-ap__g{grid-template-columns:1fr;margin-top:0}
+  .cs-ap__vis{position:relative;height:44rem}
+  .cs-ap__item{padding:4rem 0}
+  .cs-ap__item h3{font-size:6rem;line-height:6rem}
+  .cs-ap__item p{width:auto;max-width:52rem}
+  .cs-sol,.cs-sol--r{grid-template-columns:1fr;gap:3.2rem;padding:6rem 0}
+  .cs-sol--r .cs-sol__t{order:0;padding:0}
+  .cs-sol__t{position:relative;top:auto;padding:0}
+  .ui{height:48rem}
+  .cs-res__row{grid-template-columns:6rem 1fr 1fr;gap:0 2rem}
+  .cs-q{padding:8rem 0}
+  .cs-q__t{font-size:4rem;line-height:4.8rem}
+  .cs-next{height:auto;padding:4rem var(--m);display:flex;flex-direction:column;gap:3.2rem}
+  .cs-next__t,.cs-next__n,.cs-next__c{position:relative;left:auto;right:auto;top:auto;bottom:auto}
+  .cs-next .media{position:relative;left:auto;top:auto;width:100%;height:auto;aspect-ratio:65/49.8}
+  .cs-next__n{white-space:normal}
+
+  /* Про нас */
+  .ab-who{padding:8rem 0}
+  .ab-who__g{grid-template-columns:1fr;gap:4rem}
+  .ab-who__p{width:auto;margin-left:0;max-width:52rem}
+  .ab-num__h{margin-left:0;padding:0 0 6rem}
+  .ab-num__row{grid-template-columns:1fr 1fr auto;gap:2rem}
+  .ab-num__v{font-size:10rem;line-height:9rem}
+  .ab-num__v .dim{font-size:3.6rem;line-height:3.6rem;margin-left:.6rem}
+  .ab-pr__g{margin-top:0}
+  .ab-pr__c:nth-child(n){margin-top:0}
+  .ab-ex__g{grid-template-columns:1fr}
+  .ab-ex__g>div:first-child{order:2}
+  .ab-ex__i b{font-size:3.6rem;line-height:3.6rem;white-space:normal}
+  .ab-ex__v{min-height:52rem;border-left:0}
+  .ab-tm__g{grid-template-columns:1fr 1fr;gap:3.2rem 0}
+  .ab-tm__c:nth-child(n){margin-top:0}
+  .ab-tm__ph{height:32rem}
+  .ab-tm__h{padding:4rem 0 6rem}
+  .ab-cta{height:auto;min-height:70rem;display:flex;flex-direction:column;justify-content:space-between;padding:8rem var(--m) 4rem;gap:6rem}
+  .ab-cta__h,.ab-cta__b{position:relative;left:auto;right:auto;top:auto;bottom:auto}
+  .ab-cta__il{inset:20% 0 0 0}
+
+  /* Контакти */
+  .ct-hero{padding:14rem 0 6rem;min-height:0}
+  .ct-g{grid-template-columns:1fr;gap:6rem}
+  .ct-hero__il{inset:0 0 50% 0}
+  .ct-l h1{margin-top:3.2rem}
+  .ct-l__p{width:auto;max-width:52rem}
+  .ct-direct{padding:8rem 0}
+  .ct-direct__g{grid-template-columns:1fr;gap:4rem}
+
+  /* Блог */
+  .bl-feat__g{grid-template-columns:1fr}
+  .bl-feat__v{height:52rem;border-right:0;border-bottom:1px solid var(--line)}
+  .bl-feat__il{inset:0 0 20% 0}
+  .bl-feat__side{padding:2.4rem 0 4rem;gap:3.2rem}
+  .bl-feat__t{left:0;right:0;padding:0 2rem;bottom:2rem}
+  .bl-fbar{margin-top:6rem}
+  .bl-g{grid-template-columns:1fr 1fr}
+  .art--big,.art--t,.art--h,.art--w{grid-column:span 2;grid-row:auto}
+  .art--big .art__v{height:44rem}
+  .art--h,.art--w{flex-direction:column}
+  .art--h .art__v,.art--w .art__v{width:100%;height:32rem;min-height:0;order:0;border-right:0}
+  .art .h2,.art--big .h2{font-size:3.6rem;line-height:3.8rem}
+  .bl-cta{height:auto;min-height:64rem;display:flex;flex-direction:column;justify-content:space-between;padding:8rem var(--m) 4rem;gap:6rem}
+  .bl-cta__h,.bl-cta__b{position:relative;left:auto;right:auto;top:auto;bottom:auto;padding:0}
+
+  /* Стаття */
+  .ar-hero{padding-top:12rem}
+  .ar-hero__g{grid-template-columns:1fr}
+  .ar-hero__g p{grid-column:1}
+  .ar-visual{height:44rem}
+  .ar-body{grid-template-columns:1fr;padding-top:6rem}
+  .ar-toc{position:relative;top:auto;padding:0 0 4rem}
+  .ar-body:nth-of-type(n+2) .ar-toc{display:none}
+  .ar-col{padding:0}
+  .ar-note{position:relative;top:auto;padding:0 0 6rem}
+  .ar-quote{padding:8rem 0}
+  .ar-cta__in{grid-template-columns:1fr;gap:4rem}
+  .ar-cta__r{grid-row:auto;width:auto;margin:0}
+  .ar-rel__i{grid-template-columns:1fr;gap:1.2rem}
+  .ar-rel__i .bl-meta{justify-content:flex-start}
+
+  .nf__h{order:-1}
+}
+
+/* ============================================================
+   Телефон: до 767px. Одна колонка.
+   1rem = 10px при ширині 390px.
+   ============================================================ */
+@media (max-width:767px){
+  html{font-size:min(calc(100vw / 39),13px)}
+  :root{--m:1.6rem}
+  .g2::before,.g3::before,.g4::before{background-image:linear-gradient(var(--line2),var(--line2)),linear-gradient(var(--line2),var(--line2));background-position:0 0,100% 0}
+  .d180{font-size:7.2rem;line-height:7.2rem}
+  .d140{font-size:5.6rem;line-height:5.6rem}
+  .d120{font-size:4.8rem;line-height:4.8rem}
+  .d100{font-size:4.4rem;line-height:4.4rem}
+  .d72,.h1{font-size:3.8rem;line-height:3.8rem}
+  .h2{font-size:3.2rem;line-height:3.2rem}
+  .body18{font-size:1.6rem;line-height:2.4rem}
+  .ind1,.ind2{margin-left:2.4rem}
+  .sh__i1,.sh__i2{margin-left:0}
+  .label{white-space:normal}
+
+  .hd{top:1rem}
+  .hd__logo{margin-right:auto}
+  .hd__nav{display:none}
+  .hd__mnav{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem 0;border-bottom:1px solid var(--line);margin-bottom:2.4rem;padding:.8rem 2rem 2.4rem}
+  .hd__mnav a{font-size:2.4rem;line-height:2.8rem;letter-spacing:-.06em;display:inline-flex}
+  .hd__services{padding-top:0;padding-left:2rem;padding-right:2rem}
+  .hd__meta,.hd__cta{padding-left:2rem;padding-right:2rem}
+  .hd__services{grid-template-columns:1fr 1fr}
+  .hd__services a{font-size:1.4rem;line-height:1.8rem}
+  .hd__meta{grid-template-columns:auto 1fr;gap:2.4rem}
+
+  .ft__top{grid-template-columns:1fr}
+  .ft__top>*:first-child{grid-column:auto;padding-left:1.6rem;padding-right:1.6rem}
+  .ft__top>*:nth-child(n){border-left:0;grid-column:auto}
+  .ft__logo{font-size:8.8rem;line-height:8.8rem}
+  .ft__logo svg{width:2.2rem;height:2.2rem;top:.6rem}
+  .ft__h{margin-left:1.6rem}
+  .ft__list{margin-left:1.6rem;column-gap:3.2rem}
+  .ft__cta{margin-left:1.6rem}
+  .ft__bot{flex-direction:column;align-items:flex-start;height:auto;padding:2rem 1.6rem}
+  .ft__bot a{margin:0 2.4rem 0 0}
+
+  .sh{grid-template-columns:1fr auto;padding:6rem 0 4rem;row-gap:3.2rem}
+  .rv-head{padding:6rem 0 4rem}
+
+  .hh,.sv-hero,.bd-hero,.pj-hero,.ab-hero,.bl-hero,.nf{padding:10rem var(--m) 2.4rem;gap:3.2rem}
+  .hh__il{inset:9% -34% 52% -34%}
+  .hh__t{flex-direction:column;gap:0;font-size:9.6rem;line-height:9.2rem}
+  .hh__w{width:fit-content}
+  .hh__t .hh__w:last-child{align-self:flex-end}
+  .hh__m{width:2.6rem;height:2.6rem;top:.2rem;margin-left:0}
+  .hh__list{font-size:1.4rem;line-height:2.2rem}
+  .sv-hero__il,.bd-hero__il,.ab-hero__il,.nf__il{inset:8% -10% 40% -10%}
+  .bd-hero__t small{font-size:.3em}
+
+  .ha{padding:6rem 0}
+  .stats,.ap-g,.steps,.ab-pr__g,.bw__g,.ab-tm__g,.cs-ch__grid,.cs-meta{grid-template-columns:1fr}
+  .stat+.stat,.ap-c+.ap-c,.step+.step,.cs-ch__cell+.cs-ch__cell{border-left:0;border-top:1px solid var(--line)}
+  .stat{min-height:0}
+  .stat__v b{font-size:6rem;line-height:6rem}
+  .stat__v>span{font-size:1.6rem;line-height:1.7rem}
+  .ap-c{min-height:0}
+  .hs{padding:6rem 0}
+  .hs__head{margin-bottom:3.2rem}
+  .hs__panel{height:42rem}
+  .hs__g{gap:3.2rem}
+  .acc__b{grid-template-columns:4.4rem 1fr 1.2rem;padding:2rem 0}
+  .acc__t{font-size:1.8rem;line-height:2.2rem;padding-right:1rem}
+  .acc__n{font-size:1.2rem}
+  .acc__in{padding-left:4.4rem}
+  .tagline{font-size:1.3rem;gap:.4rem 1.2rem}
+  .hp__s{padding-top:4rem}
+  .hp .star{display:none}
+  .pk__d{margin-top:2rem}
+  .hw .banner{padding:2.4rem;min-height:44rem}
+  .banner{margin:0 var(--m)}
+  .rc__c{flex-basis:92%}
+  .rc__top,.rc__txt,.rc__by{padding:2rem}
+  .rc__top{font-size:1.3rem}
+  .rc__txt{font-size:1.5rem;line-height:2.3rem}
+  .step{min-height:0}
+  .step__body{padding-top:14rem}
+  .step__wm{font-size:22rem;line-height:22rem;top:2rem}
+  .fq-sec,.ca-sec{padding:6rem 0}
+  .fq{gap:4rem}
+  .fq-sec .star{display:none}
+  .ca{min-height:50rem;padding:2.4rem}
+
+  .pc__c{padding:2.4rem}
+  .pc__f{grid-template-columns:1fr}
+  .pc__foot{flex-direction:column;align-items:flex-start}
+  .pc__btn{width:100%}
+
+  .sv{grid-template-columns:1fr;gap:3.2rem;padding:4rem 0}
+  .sv__v{align-items:center}
+  .sv__il{height:28rem;width:100%}
+
+  .bw__c:nth-child(n){margin:0}
+  .bw__c{min-height:26rem}
+  .bw__g{padding-bottom:6rem}
+  .bn__list li,.bn__list--2 li{grid-template-columns:4rem 1fr;row-gap:1.2rem;padding:2rem 0}
+  .bn__list li p{grid-column:2}
+  .bn__list b{font-size:2.2rem;line-height:2.4rem}
+  .bi{padding:6rem var(--m)}
+  .bi__g{grid-template-columns:1fr}
+  .bp__g{grid-template-columns:1fr;gap:3.2rem}
+
+  .pill{height:3.2rem;padding:0 1.4rem;font-size:1.4rem}
+  .fp{padding:4rem 0}
+  .fp--c .fp__txt{padding:2rem}
+  .fp__dl{grid-template-columns:1fr 1fr}
+  .pj-cta .banner{padding:2.4rem;margin-bottom:6rem}
+
+  .cs-meta>div+div,.cs-meta>div:nth-child(n+3){border-left:0;padding-left:0;border-top:1px solid var(--line2)}
+  .cs-meta>div{min-height:0;padding:1.6rem 0}
+  .cs-sec{padding-bottom:6rem}
+  .cs-ch__cell{height:auto;min-height:26rem}
+  .cs-ch__wm{font-size:22rem;line-height:22rem}
+  .cs-ap__vis{height:32rem}
+  .cs-ap__item{padding:3.2rem 0}
+  .cs-ap__item h3{font-size:3.6rem;line-height:3.6rem}
+  .shead{flex-direction:column;gap:.8rem}
+  .ui,.ui--m{height:auto;min-height:32rem;font-size:1.1rem;line-height:1.5rem}
+  .ui-cat,.ui-co,.ui-ad{grid-template-columns:1fr;height:auto}
+  .ui-cat__f{display:none}
+  .ui-cat__g{grid-template-columns:1fr 1fr;grid-auto-rows:16rem}
+  .ui-co__sum{border-left:0;border-top:1px solid var(--line2)}
+  .ui-co__steps{gap:1.2rem;padding:2rem 2rem 0;flex-wrap:wrap}
+  .ui-co__form{padding:2.4rem 2rem}
+  .ui-ad__nav{flex-direction:row;flex-wrap:wrap;border-right:0;border-bottom:1px solid var(--line2)}
+  .ui-ad__t{grid-template-columns:1.6fr 1fr 1.4fr}
+  .ui-ad__t>:nth-child(3),.ui-ad__r>:nth-child(3){display:none}
+  .ui-ad__t>*,.ui-ad__r>span{padding:0 1rem}
+  .cs-res__row{grid-template-columns:1fr;gap:1.2rem;padding:2.4rem 0}
+  .cs-q{padding:6rem 0}
+  .cs-q__t{font-size:2.8rem;line-height:3.4rem}
+
+  .ab-num__row{grid-template-columns:1fr auto;padding:2rem 0}
+  .ab-num__v{grid-column:1 / -1;font-size:7.2rem;line-height:7rem}
+  .ab-num__v .dim{font-size:2.4rem;line-height:2.4rem}
+  .ab-num__t{font-size:1.5rem;line-height:1.7rem;padding:0}
+  .ab-num__i{padding:0}
+  .ab-ex__i{padding:2rem 0}
+  .ab-ex__i b{font-size:2.6rem;line-height:2.8rem}
+  .ab-ex__i.is-on{padding-left:1.6rem}
+  .ab-ex__v{min-height:44rem}
+  .ab-tm__c{padding:0;border-left:0}
+  .ab-cta{min-height:58rem;padding-top:6rem}
+
+  .ct-hero{padding-top:11rem}
+  .ct-form{padding:2.4rem 1.6rem}
+  .ct-form__g,.rq__two{grid-template-columns:1fr}
+  .fld--w{grid-column:auto}
+  .ct-row{grid-template-columns:9rem 1fr 1.6rem;height:7rem}
+  .ct-row b{font-size:1.5rem;line-height:1.8rem;white-space:normal;word-break:break-word}
+
+  .bl-feat__v{height:42rem}
+  .bl-g{grid-template-columns:1fr}
+  .art--big,.art--c,.art--t,.art--h,.art--w{grid-column:auto}
+  .art--big .art__v,.art--h .art__v,.art--w .art__v,.art--c .art__v{height:24rem}
+  .art .h2,.art--big .h2{font-size:2.8rem;line-height:3rem}
+  .art--t .h2{font-size:2.8rem;line-height:3rem}
+  .art{border-right:0}
+  .art--h .art__b,.art--w .art__b,.art--t .art__b,.art__b{padding:2rem 0 2.4rem}
+  .bl-cta{min-height:56rem;padding-top:6rem}
+
+  .ar-visual{height:32rem}
+  .prose{font-size:1.6rem;line-height:2.6rem}
+  .prose h2{font-size:2.6rem;line-height:3rem}
+  .insight{grid-template-columns:4rem 1fr}
+  .insight b{font-size:3.2rem;line-height:3.2rem}
+  .hl{padding:1.6rem 2rem}
+  .fig__v{height:26rem}
+  .ar-quote{padding:6rem 0}
+  .ar-cta__in{padding:2.4rem}
+  .ar-cta .banner{height:auto;min-height:44rem;display:flex}
+  .ar-cta{margin-bottom:6rem}
+
+  /* Попап на телефоні займає весь екран */
+  .rq{padding:0}
+  .rq__win{width:100%;min-height:100%;margin:0;border:0;border-radius:0;padding:2.4rem 1.6rem 3.2rem;align-content:start;gap:2.8rem}
+  .rq__h{font-size:2.8rem;line-height:2.8rem}
+  .rq__chips{gap:.8rem}
+}
+
+/* Широкі екрани: сторінка лишається 1920 px завширшки по центру */
+@media (min-width:1921px){
+  .hd{left:50%}
+}
+
+/* Пристрої без наведення: стрілки й підписи завжди видно */
+@media (hover:none){
+  .acc__b .ar{opacity:1}
+  .ab-ex__i{color:#808080}
+}
