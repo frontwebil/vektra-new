@@ -10,7 +10,7 @@ import { Motion } from "@/components/Motion";
 import { RequestModal } from "@/components/RequestModal";
 
 export const metadata: Metadata = {
-  title: { default: "Vektra — digital-агенція повного циклу", template: "%s — Vektra" },
+  title: { default: "Vektra - digital-агенція повного циклу", template: "%s - Vektra" },
   description: "Поєднуємо стратегію, брендинг, UX/UI дизайн, веброзробку та автоматизацію, щоб перетворювати бізнес-задачі на цифрові продукти.",
 };
 
