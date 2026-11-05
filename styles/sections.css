@@ -339,10 +339,12 @@ a:hover > .roll::after {
 /* HOME / Hero */
 .hh {
   height: clamp(72rem, 100svh, 102.4rem);
-  overflow: hidden;
+  overflow: visible;
 }
 .hh__il {
-  inset: 0 0 6%;
+  inset: 0 auto 0 50%;
+  width: 100vw;
+  transform: translateX(-50%);
   -webkit-mask-image: linear-gradient(#000 72%, transparent);
   mask-image: linear-gradient(#000 72%, transparent);
 }

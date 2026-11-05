@@ -118,6 +118,9 @@ button {
   overflow: clip;
   background: var(--bg);
 }
+.page:has(.hh) {
+  overflow: visible;
+}
 
 /* ---------- Сітка: поля 60px, 4 колонки по 330px, видимі лінії ------------ */
 

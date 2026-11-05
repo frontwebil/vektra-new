@@ -49,7 +49,6 @@
   .hh__list,.hh__side,.hh__t,.sv-hero__h,.sv-hero__side,.sv-hero__crumbs,.bd-hero__cap,.bd-hero__side,.bd-hero__h,.bd-hero__crumbs,.pj-hero__label,.pj-hero__side,.pj-hero__h,.ab-hero__label,.ab-hero__p,.ab-hero__h,.bl-hero__label,.bl-hero__h,.bl-hero__p,.nf__h,.nf__go{position:relative;left:auto;right:auto;top:auto;bottom:auto;width:auto;z-index:2}
   .hh .star,.sv-hero .star,.bd-hero .star,.pj-hero .star,.ab-hero .star,.bl-hero .star,.ct-hero .star,.cs-visual .star{display:none}
   .hh{padding-top:12rem}
-  .hh__il{inset:6% -12% 42% -12%}
   .hh__side{order:1;max-width:52rem;margin-top:auto}
   .hh__list{order:2}
   .hh__t{order:3;font-size:12rem;line-height:12rem}
@@ -291,7 +290,6 @@
   .rv-head{padding:6rem 0 4rem}
 
   .hh,.sv-hero,.bd-hero,.pj-hero,.ab-hero,.bl-hero,.nf{padding:10rem var(--m) 2.4rem;gap:3.2rem}
-  .hh__il{inset:9% -34% 52% -34%}
   .hh__t{flex-direction:column;gap:0;font-size:9.6rem;line-height:9.2rem}
   .hh__w{width:fit-content}
   .hh__t .hh__w:last-child{align-self:flex-end}
