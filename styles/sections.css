@@ -52,6 +52,7 @@
     50% 0,
     75% 0,
     100% 0;
+    border-bottom: 1px solid var(--line2);
 }
 .wrap {
   position: relative;
@@ -399,7 +400,7 @@ a:hover > .roll::after {
 
 /* HOME / About */
 .ha {
-  padding: 6rem 0 6rem;
+  padding: 6rem 0 0rem;
 }
 .ha__row {
   display: grid;
@@ -476,7 +477,7 @@ a:hover > .roll::after {
 }
 .hs__g {
   display: grid;
-  grid-template-columns: 55.8rem 65rem;
+  grid-template-columns: 55.8rem 66rem;
   justify-content: space-between;
   align-items: start;
 }
