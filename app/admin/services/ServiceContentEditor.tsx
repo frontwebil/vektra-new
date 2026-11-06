@@ -35,11 +35,6 @@ const arrayFields: {
     hint: "Елементи: t (назва), d (опис).",
   },
   {
-    key: "process",
-    label: "Етапи процесу",
-    hint: "Елементи: letter, n, title, text, необов’язково result.",
-  },
-  {
     key: "pricing",
     label: "Варіанти співпраці",
     hint: "Елементи: badge, title (масив рядків), text, features (масив), foot, featured.",
@@ -247,11 +242,10 @@ export function ServiceContentEditor({
           multiline
           onChange={(v) => setField("processTitle", v.split("\n"))}
         />
-        <ArrayField
-          item={arrayFields[3]}
-          value={arrayText.process}
-          error={arrayErrors.process}
-          onChange={(v) => updateArray("process", v)}
+        <ProcessStepsEditor
+          steps={value.process}
+          onChange={(steps) => setField("process", steps)}
+          disabled={disabled}
         />
       </section>
       <section className="admin-editor-section">
@@ -295,7 +289,7 @@ export function ServiceContentEditor({
           onChange={(v) => setField("pricingCta", v)}
         />
         <ArrayField
-          item={arrayFields[4]}
+          item={arrayFields[3]}
           value={arrayText.pricing}
           error={arrayErrors.pricing}
           onChange={(v) => updateArray("pricing", v)}
@@ -316,7 +310,7 @@ export function ServiceContentEditor({
           onChange={(v) => setField("faqText", v)}
         />
         <ArrayField
-          item={arrayFields[5]}
+          item={arrayFields[4]}
           value={arrayText.faq}
           error={arrayErrors.faq}
           onChange={(v) => updateArray("faq", v)}
@@ -420,5 +414,51 @@ function ArrayField({
       />
       {error && <em>{error}</em>}
     </label>
+  );
+}
+
+function ProcessStepsEditor({
+  steps,
+  onChange,
+  disabled,
+}: {
+  steps: ServicePageData["process"];
+  onChange: (steps: ServicePageData["process"]) => void;
+  disabled: boolean;
+}) {
+  function updateStep(index: number, key: keyof ServicePageData["process"][number], value: string) {
+    onChange(steps.map((step, i) => i === index ? { ...step, [key]: value } : step));
+  }
+
+  return (
+    <div className="admin-process-editor">
+      {steps.map((step, index) => (
+        <fieldset className="admin-process-step" key={`${index}-${step.n}`}>
+          <legend>Етап {index + 1}</legend>
+          <button className="admin-remove-item" type="button" disabled={disabled} onClick={() => onChange(steps.filter((_, i) => i !== index))}>Видалити етап</button>
+          <div className="admin-process-step__meta">
+            <Field label="Літера на картці" value={step.letter} onChange={(v) => updateStep(index, "letter", v)} />
+            <Field label="Номер" value={step.n} onChange={(v) => updateStep(index, "n", v)} />
+          </div>
+          <Field label="Назва етапу" value={step.title} onChange={(v) => updateStep(index, "title", v)} />
+          <Field label="Опис" value={step.text} multiline onChange={(v) => updateStep(index, "text", v)} />
+          <Field label="Результат (необов’язково)" value={step.result ?? ""} onChange={(v) => updateStep(index, "result", v)} />
+        </fieldset>
+      ))}
+      <button
+        className="admin-add-item"
+        type="button"
+        disabled={disabled}
+        onClick={() => onChange([...steps, {
+          letter: String.fromCharCode(65 + steps.length),
+          n: String(steps.length + 1).padStart(2, "0"),
+          title: "",
+          text: "",
+          result: "",
+        }])}
+      >
+        + Додати етап
+      </button>
+    </div>
   );
 }

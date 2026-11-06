@@ -51,12 +51,38 @@ const serviceSectionOrders: Record<string, ServiceSectionKey[]> = {
   automation: ["when", "why", "included", "process", "work", "pricing", "faq", "cta"],
 };
 
-const genericProcess = [
-  { letter: "A", n: "01", title: "Знайомство", text: "Уточнюємо бізнес-контекст, цілі, аудиторію та очікуваний результат." },
-  { letter: "B", n: "02", title: "Планування", text: "Визначаємо обсяг, пріоритети, етапи роботи та критерії готовності." },
-  { letter: "C", n: "03", title: "Реалізація", text: "Виконуємо погоджені роботи й регулярно показуємо проміжний результат." },
-  { letter: "D", n: "04", title: "Передача та запуск", text: "Перевіряємо результат, передаємо матеріали й допомагаємо підготуватися до запуску." },
-];
+const serviceProcesses: Record<string, ServicePageData["process"]> = {
+  "ux-ui": [
+    { letter: "A", n: "01", title: "Дослідження", text: "Вивчаємо користувачів, контекст продукту та основні сценарії взаємодії.", result: "розуміння аудиторії та її потреб." },
+    { letter: "B", n: "02", title: "Структура", text: "Будуємо інформаційну архітектуру й визначаємо логіку ключових сторінок.", result: "узгоджена структура продукту." },
+    { letter: "C", n: "03", title: "Дизайн", text: "Створюємо прототипи, візуальну систему й адаптивні макети.", result: "готовий до розробки інтерфейс." },
+    { letter: "D", n: "04", title: "Передача", text: "Готуємо макети, компоненти та специфікації для команди розробки.", result: "матеріали для точного впровадження." },
+  ],
+  "web-development": [
+    { letter: "A", n: "01", title: "Вимоги й план", text: "Уточнюємо функціонал, інтеграції, контент і критерії запуску.", result: "погоджений обсяг і технічний план." },
+    { letter: "B", n: "02", title: "Архітектура", text: "Визначаємо структуру системи, дані та технології під задачу.", result: "основа для масштабованої розробки." },
+    { letter: "C", n: "03", title: "Розробка", text: "Створюємо інтерфейс, серверну логіку й потрібні інтеграції.", result: "робоча версія продукту." },
+    { letter: "D", n: "04", title: "Перевірка й запуск", text: "Тестуємо сценарії, виправляємо помилки та готуємо реліз.", result: "стабільний продукт онлайн." },
+  ],
+  "digital-social": [
+    { letter: "A", n: "01", title: "Аудит", text: "Оцінюємо бренд, аудиторію, канали й поточний контент.", result: "розуміння точки старту." },
+    { letter: "B", n: "02", title: "Стратегія", text: "Формуємо теми, тон комунікації та пріоритетні формати.", result: "цілісний напрямок комунікації." },
+    { letter: "C", n: "03", title: "Виробництво", text: "Готуємо контент і візуали та плануємо публікації.", result: "контент-план і готові матеріали." },
+    { letter: "D", n: "04", title: "Оптимізація", text: "Аналізуємо реакції аудиторії й коригуємо наступні активності.", result: "зрозумілі наступні кроки росту." },
+  ],
+  "qa-launch": [
+    { letter: "A", n: "01", title: "План перевірки", text: "Уточнюємо функціонал, платформи та критичні сценарії.", result: "пріоритетний план тестування." },
+    { letter: "B", n: "02", title: "Тестування", text: "Перевіряємо функції, адаптивність і поведінку на пристроях.", result: "список підтверджених дефектів." },
+    { letter: "C", n: "03", title: "Повторна перевірка", text: "Перевіряємо виправлення та проходження основних сценаріїв.", result: "підтверджена якість релізу." },
+    { letter: "D", n: "04", title: "Підготовка запуску", text: "Звіряємо чеклист, середовище та критичні налаштування.", result: "продукт готовий до запуску." },
+  ],
+  automation: [
+    { letter: "A", n: "01", title: "Аудит процесу", text: "Розбираємо поточний процес, інструменти та повторювані задачі.", result: "визначені точки для автоматизації." },
+    { letter: "B", n: "02", title: "Сценарій", text: "Проєктуємо послідовність дій, умови та обробку винятків.", result: "узгоджена схема автоматизації." },
+    { letter: "C", n: "03", title: "Інтеграція", text: "З’єднуємо сервіси, налаштовуємо передачу даних і сповіщення.", result: "автоматизований робочий процес." },
+    { letter: "D", n: "04", title: "Тест і передача", text: "Перевіряємо сценарії та пояснюємо команді роботу системи.", result: "перевірене рішення, готове до роботи." },
+  ],
+};
 
 export function defaultServicePage(service: Service): ServicePageData {
   if (service.slug === "branding") {
@@ -169,7 +195,7 @@ export function defaultServicePage(service: Service): ServicePageData {
     includedLead: copy.includedLead,
     included: service.tags.map((tag) => ({ t: tag, d: `Опрацьовуємо напрям «${tag}» з урахуванням задачі, контексту та наступних кроків продукту.` })),
     processTitle: copy.processTitle,
-    process: genericProcess,
+    process: serviceProcesses[service.slug],
     workTitle: copy.workTitle,
     workSlugs: PROJECTS.map((project) => project.slug),
     pricing: PRICING,
@@ -209,7 +235,8 @@ export const ensureServicePageTemplates = cache(async function ensureServicePage
     });
     const previous = saved.content as Partial<ServicePageData>;
     const oldGenericHeading = previous.whyTitle?.[0] === "Рішення під" || (item.slug !== "branding" && previous.whyTitle?.[0] === "Не просто");
-    const legacy = !previous.sectionOrder || oldGenericHeading;
+    const oldGenericProcess = item.slug !== "branding" && previous.process?.[0]?.title === "Знайомство";
+    const legacy = !previous.sectionOrder || oldGenericHeading || oldGenericProcess;
     if (Object.keys(initial).every((key) => key in previous) && !legacy) return saved;
     const merged = { ...initial, ...previous };
     if (legacy) {
@@ -220,6 +247,7 @@ export const ensureServicePageTemplates = cache(async function ensureServicePage
       merged.workTitle = initial.workTitle;
       merged.faqTitle = initial.faqTitle;
     }
+    if (oldGenericProcess) merged.process = initial.process;
     return prisma.servicePageContent.update({ where: { slug: item.slug }, data: { content: merged } });
   }));
 });

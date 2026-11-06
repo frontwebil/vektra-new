@@ -324,6 +324,14 @@
 .admin-illustration-option img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 0.4rem; background: #080909; }
 .admin-illustration-option span { font-size: 1.1rem; }
 .admin-editor-field em { color: #ff9c90; font-size: 1.1rem; font-style: normal; }
+.admin-process-editor { display: grid; gap: 1rem; }
+.admin-process-step { position: relative; display: grid; gap: 1.4rem; min-width: 0; padding: 1.8rem; border: 1px solid #303433; border-radius: 0.8rem; }
+.admin-process-step legend { padding-right: 12rem; color: #f3f3ef; font-size: 1.3rem; }
+.admin-process-step .admin-remove-item { position: absolute; top: 1.4rem; right: 1.4rem; }
+.admin-process-step__meta { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.admin-remove-item, .admin-add-item { justify-self: start; padding: 0.8rem 1.2rem; border: 1px solid #373b39; border-radius: 99rem; color: #c5c7c3; font-size: 1.1rem; }
+.admin-remove-item:disabled, .admin-add-item:disabled { opacity: 0.45; cursor: not-allowed; }
+.admin-add-item { color: #080909; background: #f3f3ef; }
 .admin-form-actions { display: flex; align-items: center; gap: 1.6rem; flex-wrap: wrap; }
 .admin-form-actions span, .admin-success { color: #8b8e8d; font-size: 1.2rem; }
 .admin-success { margin-bottom: 1.6rem; color: #a6d8a5; }
