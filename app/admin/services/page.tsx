@@ -45,7 +45,7 @@ export default async function AdminServicesPage({ searchParams }: { searchParams
         <section className="admin-panel admin-service-form-panel">
           <div className="admin-panel__head"><div><h2>{selected.name}</h2><p>Секції сторінки зберігаються окремо для кожної послуги.</p></div><Link className="admin-view-all" href={`/services/${selected.slug}`} target="_blank">Відкрити сторінку ↗</Link></div>
           <div className="admin-template-help"><b>Усі секції шаблону</b><p>Тексти можна змінювати у відповідних полях. Повторювані картки та списки відредагуйте у JSON-блоці кожної секції.</p></div>
-          <ServiceContentEditor slug={selected.slug} initialValue={value} disabled={dbError} />
+          <ServiceContentEditor key={selected.slug} slug={selected.slug} initialValue={value} disabled={dbError} />
         </section>
       </section>
     </div>
