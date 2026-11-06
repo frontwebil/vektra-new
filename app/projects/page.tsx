@@ -30,7 +30,7 @@ export default function ProjectsPage() {
   return (
     <>
       <section className="sec g4 pj-hero" data-hero>
-        <Illustration name="web" fit="cover" className="fx" brightness={0.7} />
+        <Illustration name="web" fit="cover" className="fx pj-hero__il" brightness={0.7} />
         <Star className="star--a" style={{ left: "39rem", top: "60rem" }} />
         <Star className="star--b" style={{ left: "124rem", top: "64rem" }} />
         <Label className="pj-hero__label">(01) / Selected work</Label>

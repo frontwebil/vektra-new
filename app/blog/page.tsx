@@ -25,7 +25,7 @@ export default function BlogPage() {
   return (
     <>
       <section className="sec g4 bl-hero" data-hero>
-        <Illustration name="web" fit="cover" className="fx" brightness={0.7} />
+        <Illustration name="web" fit="cover" className="fx bl-hero__il" brightness={0.7} />
         <Star className="star--a" style={{ left: "104rem", top: "21rem" }} />
         <Label className="bl-hero__label">(01) / Insights</Label>
         <Lines as="h1" className="d120 bl-hero__h" lines={[{ t: "Думки," }, { t: "досвід", dim: true }, { t: "і практика." }]} />
@@ -71,7 +71,7 @@ export default function BlogPage() {
       </section>
 
       <section className="sec g4 bl-cta">
-        <Illustration name="vortex" fit="cover" className="fx" brightness={0.65} />
+        <Illustration name="vortex" fit="cover" className="fx bl-cta__il" brightness={0.65} />
         <div className="bl-cta__b" data-r><RequestButton>Обговорити проєкт</RequestButton></div>
         <Lines className="d120 bl-cta__h" lines={[{ t: "Є тема," }, { t: "яку варто", dim: true }, { t: "обговорити?" }]} />
       </section>

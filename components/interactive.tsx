@@ -237,7 +237,7 @@ export function CatFilter({ scope, options, label, emptyText }: { scope: string;
 }
 
 const SERVICE_OPTIONS = ["Strategy & Branding", "UX/UI Design", "Web Development", "Digital & Social", "QA & Launch", "Automation & Integrations", "Комплексний проєкт"];
-const BUDGETS = ["до $1 000", "$1 000–3 000", "$3 000–5 000", "$5 000+", "Ще не визначили"];
+const BUDGETS = ["до $300" , "$1 000", "$1 000–3 000", "$3 000–5 000", "$5 000+", "Ще не визначили"];
 
 /** Форма на сторінці контактів: той самий обробник, що й у попапі, але з бюджетом. */
 export function ContactForm() {

@@ -118,7 +118,9 @@ button {
   overflow: clip;
   background: var(--bg);
 }
-.page:has(.hh) {
+.page:has(.hh),
+.page:has(.pj-hero),
+.page:has(.bl-hero) {
   overflow: visible;
 }
 
@@ -2123,7 +2125,7 @@ a:hover .media img {
 }
 .bl-cta {
   height: 76rem;
-  overflow: hidden;
+  overflow: visible;
 }
 .bl-cta__h {
   position: absolute;

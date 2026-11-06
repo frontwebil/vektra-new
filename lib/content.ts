@@ -2,7 +2,6 @@ import type { IllustrationName } from "./illustrations";
 
 export const CONTACT = {
   email: "vektra.it.agency@gmail.com",
-  // Адрес у файлі немає: підставте справжні, і вони оновляться в усіх місцях
   telegram: { label: "@telegram", href: "#" },
   whatsapp: { label: "@whatsapp", href: "#" },
   socials: [

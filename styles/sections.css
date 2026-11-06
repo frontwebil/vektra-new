@@ -299,8 +299,9 @@ a:hover > .roll::after {
   display: grid;
   grid-template-columns: 33rem 1fr 33rem;
   min-height: 25.6rem;
-  padding-top: 10rem;
+  padding-top: 5rem;
   align-items: start;
+      border-top: 1px solid var(--line2);
 }
 .sh__h {
   justify-self: center;
@@ -310,6 +311,7 @@ a:hover > .roll::after {
 }
 .sh--c .sh__h {
   text-align: center;
+  padding-bottom: 5rem;
 }
 .sh__i1 {
   margin-left: 3rem;
@@ -337,6 +339,13 @@ a:hover > .roll::after {
 }
 
 /* HOME / Hero */
+.pj-hero__il,
+.bl-hero__il,
+.bl-cta__il {
+  inset: 0 auto 0 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+}
 .hh {
   height: clamp(72rem, 100svh, 102.4rem);
   overflow: visible;
@@ -479,7 +488,7 @@ a:hover > .roll::after {
 }
 .hs__g {
   display: grid;
-  grid-template-columns: 55.8rem 66rem;
+  grid-template-columns: 55.8rem 50%;
   justify-content: space-between;
   align-items: start;
 }
@@ -492,7 +501,7 @@ a:hover > .roll::after {
 }
 .hs__cap {
   height: 4.6rem;
-  border-bottom: 1px solid var(--line);
+  /* border-bottom: 1px solid var(--line); */
 }
 .hs__vis {
   flex: 1;
@@ -501,7 +510,7 @@ a:hover > .roll::after {
 }
 .hs__foot {
   height: 4.6rem;
-  border-top: 1px solid var(--line);
+  /* border-top: 1px solid var(--line); */
   padding-top: 2rem;
 }
 .acc__i {
@@ -699,6 +708,9 @@ a:hover > .roll::after {
   padding-top: 10rem;
   align-items: flex-start;
 }
+.rv-head h2{
+  padding-bottom: 5rem;
+}
 .rc {
   display: flex;
   overflow-x: auto;
@@ -855,7 +867,7 @@ a:hover > .roll::after {
 }
 .fq {
   display: grid;
-  grid-template-columns: 67rem 65rem;
+  grid-template-columns: 50% 50%;
   justify-content: space-between;
 }
 .fq__l {
@@ -1078,6 +1090,7 @@ a:hover > .roll::after {
   justify-content: center;
   padding: 10rem 0;
   border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
 }
 .sv-end .ln {
   white-space: nowrap;
