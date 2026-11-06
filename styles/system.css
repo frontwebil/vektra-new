@@ -1934,6 +1934,7 @@ a:hover .media img {
 }
 .ct-direct {
   padding: 10rem 0 14rem;
+  border-bottom: 1px solid var(--line2);
 }
 .ct-direct__g {
   display: grid;
