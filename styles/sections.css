@@ -702,7 +702,7 @@ a:hover > .roll::after {
 
 /* Відгуки */
 .rv-sec {
-  padding-bottom: 10rem;
+  padding-bottom: 0rem;
 }
 .rv-head {
   display: flex;
@@ -710,6 +710,7 @@ a:hover > .roll::after {
   min-height: 25.6rem;
   padding-top: 10rem;
   align-items: flex-start;
+  border-top: 1px solid var(--line2);
 }
 .rv-head h2 {
   padding-bottom: 5rem;

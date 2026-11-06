@@ -40,7 +40,7 @@
   .sh__r{grid-column:2;grid-row:1}
   .sh__h{grid-column:1 / -1;grid-row:2;justify-self:start}
   .sh--c .sh__h{text-align:left;justify-self:start}
-  .shead{height:auto;padding:3.2rem 0 4rem}
+  .shead{height:auto;padding:8.2rem 0 4rem}
   .sh .ln,.hs__head .ln,.rv-head .ln,.fq__l .ln{white-space:normal}
   .rv-head{flex-direction:column-reverse;gap:4rem;min-height:0;padding:8rem 0 6rem}
 

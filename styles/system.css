@@ -643,7 +643,7 @@ a:hover .ar::after {
   justify-content: space-between;
   align-items: flex-start;
   height: 10rem;
-  padding-top: 4rem;
+  padding-top: 10rem;
 }
 .fx {
   position: absolute;
@@ -1493,6 +1493,7 @@ a:hover .media img {
 }
 .ab-who {
   padding: 14rem 0 16rem;
+  border-bottom: 1px solid var(--line2);
 }
 .ab-who__g {
   display: grid;
@@ -1508,7 +1509,7 @@ a:hover .media img {
   margin-left: 16.5rem;
 }
 .ab-num {
-  padding: 0 0 12rem;
+  padding: 0 0 0rem;
 }
 .ab-num__h {
   padding: 6rem 0 8rem;
