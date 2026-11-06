@@ -1132,6 +1132,7 @@ a:hover > .roll::after {
   bottom: 20rem;
   z-index: 2;
   text-transform: none;
+  white-space: pre-line;
 }
 .bd-hero__t {
   white-space: nowrap;
