@@ -82,7 +82,7 @@ export const SERVICES: Service[] = [
     slug: "web-development",
     index: "03",
     letter: "C",
-    name: "Web Development",
+    name: "Web \n Development",
     short: "Web Development",
     cap: "Build",
     form: "knot",
