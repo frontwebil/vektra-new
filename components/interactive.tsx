@@ -245,7 +245,7 @@ export function ContactForm() {
   const [budget, setBudget] = useState("");
   const [openSel, setOpenSel] = useState(false);
   const [errors, setErrors] = useState<Record<string, boolean>>({});
-  const [state, setState] = useState<"idle" | "busy" | "sent" | "mail" | "error">("idle");
+  const [state, setState] = useState<"idle" | "busy" | "sent" | "error">("idle");
   const sel = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const on = (e: MouseEvent) => {
@@ -277,6 +277,17 @@ export function ContactForm() {
       <span className="fld__e">{msg}</span>
     </div>
   );
+  if (state === "sent") {
+    return (
+      <div className="ct-form ct-form--done" role="status">
+        <div className="rq__done">
+          <p className="h36">Запит надіслано.</p>
+          <p className="dim">Ми переглянемо запит і зв’яжемося з вами, щоб уточнити задачу та наступні кроки.</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <form className="ct-form" onSubmit={submit} noValidate>
       <div className="ct-form__g">
@@ -330,8 +341,6 @@ export function ContactForm() {
         {state === "busy" ? "Надсилаємо…" : "Надіслати запит"} <Arrow />
       </button>
       <p className="ct-note">Ми переглянемо запит і зв’яжемося з вами, щоб уточнити задачу та наступні кроки.</p>
-      {state === "sent" && <p className="ct-ok is-on" role="status">Запит надіслано. Дякуємо!</p>}
-      {state === "mail" && <p className="ct-ok is-on" role="status">Ми відкрили поштову програму із заповненим листом. Якщо вона не відкрилася, напишіть на {CONTACT.email}.</p>}
       {state === "error" && <p className="ct-ok is-on" role="alert">Не вдалося надіслати запит. Спробуйте ще раз або напишіть на {CONTACT.email}.</p>}
     </form>
   );

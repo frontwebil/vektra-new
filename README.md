@@ -59,7 +59,7 @@ npm start
 
 ## Куди приходять заявки
 
-Сервера для заявок немає: форми відкривають лист на адресу з `lib/content.ts`. Щоб заявки надходили на ваш обробник, скопіюйте `.env.example` у `.env.local` і вкажіть адресу в `NEXT_PUBLIC_REQUEST_ENDPOINT`.
+Форми надсилають заявки на `/api/requests`, який передає їх у Telegram. Для цього задайте `TELEGRAM_CHAT_ID` і `TELEGRAM_BOT_TOKEN` у `.env.local`. Якщо `NEXT_PUBLIC_REQUEST_ENDPOINT` задано, заявки надсилатимуться на цей зовнішній обробник замість вбудованого маршруту.
 
 ## Адаптив
 
