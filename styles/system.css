@@ -123,6 +123,17 @@ button {
 .page:has(.bl-hero) {
   overflow: visible;
 }
+.page:has(.admin-shell),
+.page:has(.admin-login) {
+  max-width: none;
+  overflow: visible;
+}
+.page:has(.admin-shell) > .hd,
+.page:has(.admin-shell) > .ft,
+.page:has(.admin-login) > .hd,
+.page:has(.admin-login) > .ft {
+  display: none;
+}
 
 /* ---------- Сітка: поля 60px, 4 колонки по 330px, видимі лінії ------------ */
 
@@ -2424,3 +2435,4 @@ a:hover .media img {
   line-height: 3.4rem;
   padding-right: 3rem;
 }
+

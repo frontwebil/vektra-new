@@ -7,7 +7,6 @@ import { ParticleField } from "@/lib/particles";
 type Props = {
   name: IllustrationName;
   className?: string;
-  /** contain — форма вміщується цілою, cover — заповнює блок */
   fit?: "contain" | "cover";
   zoom?: number;
   density?: number;

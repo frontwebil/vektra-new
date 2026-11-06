@@ -8,6 +8,7 @@ import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { Motion } from "@/components/Motion";
 import { RequestModal } from "@/components/RequestModal";
+import { AnalyticsTracker } from "@/components/AnalyticsTracker";
 
 export const metadata: Metadata = {
   title: { default: "Vektra - digital-агенція повного циклу", template: "%s - Vektra" },
@@ -38,6 +39,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <div className="veil" data-veil aria-hidden="true" />
         <RequestModal />
         <Motion />
+        <AnalyticsTracker />
       </body>
     </html>
   );
