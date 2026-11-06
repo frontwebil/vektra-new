@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getPrisma } from "@/lib/prisma";
 import { hasAdminSession } from "@/lib/admin-auth";
@@ -147,7 +148,10 @@ export default async function AdminPage() {
             </div>
 
             <section className="admin-panel admin-recent">
-              <div className="admin-panel__head"><div><h2>Останні відвідування</h2><p>Останні 50 переглядів</p></div></div>
+              <div className="admin-panel__head">
+                <div><h2>Останні відвідування</h2><p>Останні 50 переглядів</p></div>
+                {data!.visits > 50 && <Link className="admin-view-all" href="/admin/visits">Переглянути всі <span>↗</span></Link>}
+              </div>
               <div className="admin-table-wrap">
                 <table className="admin-table">
                   <thead><tr><th>Час</th><th>IP</th><th>Країна</th><th>Пристрій</th><th>Браузер</th><th>Сторінка</th><th>Джерело</th></tr></thead>
