@@ -148,7 +148,7 @@ export function SelectedWork() {
   );
 }
 
-export function PricingCards({ left, right, cards, cta }: { left: string; right: string; cards: { badge: string; title: string[]; text: string; features: string[]; foot: string; featured?: boolean }[]; cta: string }) {
+export function PricingCards({ left, right, cards, cta, form = "flower" }: { left: string; right: string; cards: { badge: string; title: string[]; text: string; features: string[]; foot: string; featured?: boolean }[]; cta: string; form?: IllustrationName }) {
   return (
     <section className="sec g2 pc-sec">
       <div className="wrap">
@@ -159,7 +159,7 @@ export function PricingCards({ left, right, cards, cta }: { left: string; right:
         <div className="pc">
           {cards.map((c) => (
             <article className={`pc__c ${c.featured ? "is-f" : ""}`} key={c.badge}>
-              {c.featured && <Illustration name="flower" className="fx pc__il" density={0.8} brightness={0.7} interactive={false} />}
+              {c.featured && <Illustration name={form} className="fx pc__il" density={0.8} brightness={0.7} interactive={false} />}
               <span className="idx">[ {c.badge} ]</span>
               <Lines lines={c.title.map((t) => ({ t }))} as="h3" className="h2" />
               <p className={c.featured ? "" : "dim"} data-r>{c.text}</p>

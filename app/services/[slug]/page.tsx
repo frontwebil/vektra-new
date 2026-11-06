@@ -102,7 +102,7 @@ function FullServicePage({ s, data }: { s: Service; data: Awaited<ReturnType<typ
         </div>
       </section>
     ),
-    pricing: () => <PricingCards left={data.pricingLeft} right={data.pricingRight} cards={data.pricing} cta={data.pricingCta} />,
+    pricing: () => <PricingCards left={data.pricingLeft} right={data.pricingRight} cards={data.pricing} cta={data.pricingCta} form={data.form} />,
     faq: () => <SectionFaq items={data.faq} lines={data.faqTitle.map((t, i) => ({ t, dim: i === 1 }))} text={data.faqText} />,
     cta: () => <SectionCta q={data.ctaQ} text={data.ctaText} tag={data.ctaTag} form={data.form} action={data.ctaAction} lines={data.ctaLines.map((t, i) => ({ t, dim: i === 0 || i === data.ctaLines.length - 1, cls: i === 1 ? "ca__ind" : i === 0 ? "ca__r1" : undefined }))} />,
   };
