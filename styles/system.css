@@ -752,7 +752,7 @@ a:hover .media img {
   align-items: center;
   justify-content: space-between;
   height: 12rem;
-  border-top: 1px solid var(--line);
+  /* border-top: 1px solid var(--line); */
   border-bottom: 1px solid var(--line);
 }
 .pj-filter__pills {
@@ -918,7 +918,7 @@ a:hover .media img {
 }
 .pj-cta .banner {
   height: 56rem;
-  margin-bottom: 12rem;
+  margin-bottom: 0rem;
 }
 .pj-cta__h {
   position: absolute;

@@ -52,7 +52,7 @@
     50% 0,
     75% 0,
     100% 0;
-    border-bottom: 1px solid var(--line2);
+  border-bottom: 1px solid var(--line2);
 }
 .wrap {
   position: relative;
@@ -108,7 +108,7 @@
   height: 100%;
 }
 
-.pc__c .pc__il canvas{
+.pc__c .pc__il canvas {
   opacity: 0.6;
 }
 
@@ -301,7 +301,7 @@ a:hover > .roll::after {
   min-height: 25.6rem;
   padding-top: 5rem;
   align-items: start;
-      border-top: 1px solid var(--line2);
+  border-top: 1px solid var(--line2);
 }
 .sh__h {
   justify-self: center;
@@ -708,7 +708,7 @@ a:hover > .roll::after {
   padding-top: 10rem;
   align-items: flex-start;
 }
-.rv-head h2{
+.rv-head h2 {
   padding-bottom: 5rem;
 }
 .rc {
@@ -1478,11 +1478,23 @@ a:hover > .roll::after {
 .pj-cta__h {
   position: absolute;
 }
+
+.d100.pj-cta__h .ln.dim {
+  text-align: center;
+}
+.d100.pj-cta__h .ln.dim:last-child {
+  text-align: right;
+}
+
 .pj-cta__b {
   position: absolute;
 }
 .pj-cta .banner {
   height: 56rem;
+}
+.pj-cta {
+  padding-bottom: 10rem;
+  border-bottom: 1px solid var(--line2);
 }
 .cs-crumbs {
   position: absolute;

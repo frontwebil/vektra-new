@@ -140,7 +140,8 @@
   .fp--b .fp__txt{padding-left:0}
   .fp--c .fp__txt{gap:3.2rem}
   .fp__top{flex-wrap:wrap;gap:1.6rem}
-  .pj-cta .banner{height:auto;min-height:56rem;display:flex;flex-direction:column;gap:4rem;padding:4rem;margin-bottom:8rem}
+  .pj-cta{padding-bottom: 8rem;}
+  .pj-cta .banner{height:auto;min-height:56rem;display:flex;flex-direction:column;gap:4rem;padding:4rem;margin-bottom:0rem}
   .pj-cta__h,.pj-cta__b{position:relative;left:auto;right:auto;top:auto;bottom:auto;width:auto}
 
   /* Кейс */
@@ -354,7 +355,8 @@
   .fp{padding:4rem 0}
   .fp--c .fp__txt{padding:2rem}
   .fp__dl{grid-template-columns:1fr 1fr}
-  .pj-cta .banner{padding:2.4rem;margin-bottom:6rem}
+  .pj-cta{padding-bottom: 6rem;}
+  .pj-cta .banner{padding:2.4rem;margin-bottom:0rem}
 
   .cs-meta>div+div,.cs-meta>div:nth-child(n+3){border-left:0;padding-left:0;border-top:1px solid var(--line2)}
   .cs-meta>div{min-height:0;padding:1.6rem 0}
