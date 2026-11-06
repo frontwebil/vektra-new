@@ -54,6 +54,9 @@
     100% 0;
   border-bottom: 1px solid var(--line2);
 }
+.ca-sec::before {
+  border-top: 1px solid var(--line2);
+}
 .wrap {
   position: relative;
   z-index: 1;
