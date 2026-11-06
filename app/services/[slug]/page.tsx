@@ -71,7 +71,7 @@ function Hero({
         </div>
       </div>
       <h1 className="d120 bd-hero__h" data-lines>
-        <Ln className="bd-hero__t">{parts[0]}</Ln>
+        <Ln className="bd-hero__t pre-line">{parts[0]}</Ln>
         {parts[1] && (
           <Ln className="bd-hero__t ind2">
             <small>&</small> {parts[1]}

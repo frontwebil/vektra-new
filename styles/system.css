@@ -927,6 +927,9 @@ a:hover .media img {
   text-align: left;
   z-index: 2;
 }
+.pre-line{
+  white-space: pre-line!important;
+}
 .pj-cta__h .ln:nth-child(2) {
   margin-left: 0;
 }
