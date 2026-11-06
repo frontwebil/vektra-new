@@ -1,13 +1,18 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Illustration } from "@/components/Illustration";
 import { RequestButton } from "@/components/RequestButton";
 import { Lines, PricingCards, ProjectImage, SectionCta, SectionFaq, SectionHead, SectionProcess } from "@/components/sections";
 import { Arrow, Crumbs, Dots, Label, Ln, Star } from "@/components/ui";
-import { BRANDING, BRANDING_PRICING, PRICING, PROJECTS, SERVICES, type Service } from "@/lib/content";
+import { PROJECTS, SERVICES, type Service } from "@/lib/content";
+import { getServicePageData, type ServiceSectionKey } from "@/lib/service-pages";
+import type { IllustrationName } from "@/lib/illustrations";
 
 type Props = { params: Promise<{ slug: string }> };
+
+export const dynamic = "force-dynamic";
 
 export function generateStaticParams() {
   return SERVICES.map((s) => ({ slug: s.slug }));
@@ -19,11 +24,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return s ? { title: s.name, description: `${s.lead} ${s.rest}` } : {};
 }
 
-function Hero({ s, side, sideRest, action }: { s: Service; side: string; sideRest: string; action: string }) {
+function Hero({ s, side, sideRest, action, form }: { s: Service; side: string; sideRest: string; action: string; form: IllustrationName }) {
   const parts = s.name.split(" & ");
   return (
     <section className="sec g4 bd-hero" data-hero>
-      <Illustration name={s.form} className="fx bd-hero__il" density={1.4} brightness={0.72} />
+      <Illustration name={form} className="fx bd-hero__il" density={1.4} brightness={0.72} />
       <Star className="star--a" style={{ left: "128rem", top: "12rem" }} />
       <Star className="star--b" style={{ left: "37rem", top: "24rem" }} />
       <Star className="star--c" style={{ left: "128rem", top: "78rem" }} />
@@ -43,125 +48,68 @@ function Hero({ s, side, sideRest, action }: { s: Service; side: string; sideRes
   );
 }
 
-function BrandingPage({ s }: { s: Service }) {
-  const work = PROJECTS.filter((p) => p.slug !== "pumplab");
-  return (
-    <>
-      <Hero s={s} side={BRANDING.hero} sideRest={BRANDING.heroRest} action="Розрахувати вартість" />
-
+function FullServicePage({ s, data }: { s: Service; data: Awaited<ReturnType<typeof getServicePageData>> }) {
+  const work = data.workSlugs.map((slug) => PROJECTS.find((project) => project.slug === slug)).filter((project): project is (typeof PROJECTS)[number] => Boolean(project));
+  const sections: Record<ServiceSectionKey, () => ReactNode> = {
+    why: () => (
       <section className="sec g4 bw">
         <div className="wrap">
-          <SectionHead left="Чому" right="Навіщо" className="sh--c" lines={[{ t: "Не просто", cls: "sh__i1" }, { t: "впізнавано.", dim: true }, { t: "Зрозуміло, хто ви." }]} />
-          <div className="bw__g">
-            {BRANDING.why.map((c, i) => (
-              <article className="bw__c" key={c.a} data-r>
-                <div className="stat__top">
-                  <span className="idx">[ {String.fromCharCode(65 + i)} ]</span>
-                  <Dots on={i + 1} total={3} />
-                </div>
-                <div>
-                  <h3 className="h3">{c.a}<br /><span className="dim">{c.b}</span></h3>
-                  <p>{c.text}</p>
-                </div>
-              </article>
-            ))}
-          </div>
+          <SectionHead left={data.whyLeft} right={data.whyRight} className="sh--c" lines={data.whyTitle.map((t, i) => ({ t, dim: i === 1, cls: i === 0 ? "sh__i1" : undefined }))} />
+          <div className="bw__g">{data.why.map((c, i) => (
+            <article className="bw__c" key={c.a} data-r>
+              <div className="stat__top"><span className="idx">[ {String.fromCharCode(65 + i)} ]</span><Dots on={i + 1} total={3} /></div>
+              <div><h3 className="h3">{c.a}<br /><span className="dim">{c.b}</span></h3><p>{c.text}</p></div>
+            </article>
+          ))}</div>
         </div>
       </section>
-
+    ),
+    when: () => (
       <section className="sec g4 bn">
         <div className="wrap bn__g">
-          <Label className="bn__l">Коли потрібен брендинг</Label>
+          <Label className="bn__l">{data.whenLabel}</Label>
           <div>
-            <Lines className="h2" lines={[{ t: "Якщо бренд вже є," }, { t: "але напрямку" }, { t: "ще немає.", dim: true }]} />
-            <ul className="bn__list">
-              {BRANDING.when.map((w, i) => (
-                <li key={w.t} data-r>
-                  <span className="idx">[ {String.fromCharCode(65 + i)} ]</span>
-                  <b>{w.t}</b>
-                  <p className="dim">{w.d}</p>
-                </li>
-              ))}
-            </ul>
-            <div className="bn__s">
-              <p data-r>{BRANDING.whenText}</p>
-              <div data-r><RequestButton>Обговорити проєкт</RequestButton></div>
-            </div>
+            <Lines className="h2" lines={data.whenTitle.map((t, i) => ({ t, dim: i === data.whenTitle.length - 1 }))} />
+            <ul className="bn__list">{data.when.map((w, i) => (
+              <li key={w.t} data-r><span className="idx">[ {String.fromCharCode(65 + i)} ]</span><b>{w.t}</b><p className="dim">{w.d}</p></li>
+            ))}</ul>
+            <div className="bn__s"><p data-r>{data.whenText}</p><div data-r><RequestButton>Обговорити проєкт</RequestButton></div></div>
           </div>
         </div>
       </section>
-
+    ),
+    included: () => (
       <section className="sec g4 bi">
-        <Illustration name="flower" className="fx bi__il" density={1.4} brightness={0.72} />
-        <Label className="bi__r">Склад послуги</Label>
-        <p className="label bi__l" data-r>Стратегія визначає напрямок,<br />айдентика робить його видимим.</p>
-        <div className="bi__g">
-          {BRANDING.included.map((c) => (
-            <article className="bi__c" key={c.t} data-r>
-              <h3 className="h3">{c.t}</h3>
-              <p>{c.d}</p>
-            </article>
-          ))}
-        </div>
+        <Illustration name={data.form} className="fx bi__il" density={1.4} brightness={0.72} />
+        <Label className="bi__r">{data.includedLabel}</Label>
+        <p className="label bi__l" data-r>{data.includedLead.split("\n").map((line) => <span key={line}>{line}<br /></span>)}</p>
+        <div className="bi__g">{data.included.map((c) => (
+          <article className="bi__c" key={c.t} data-r><h3 className="h3">{c.t}</h3><p>{c.d}</p></article>
+        ))}</div>
       </section>
-
-      <SectionProcess left="How we work" right="Process" title={[{ t: "Від дослідження" }, { t: "до бренду, який", dim: true, cls: "sh__i1" }, { t: "можна запускати." }]} steps={BRANDING.process} />
-
+    ),
+    process: () => <SectionProcess left={data.processLeft} right={data.processRight} title={data.processTitle.map((t, i) => ({ t, dim: i === 1, cls: i === 1 ? "sh__i1" : undefined }))} steps={data.process} />,
+    work: () => (
       <section className="sec g2 bp">
         <div className="wrap">
-          <div className="sv-end sv-end--t">
-            <Lines className="h2" lines={[{ t: "Стратегія, яку" }, { t: "можна побачити", dim: true, cls: "ind1" }]} />
-          </div>
-          <div className="bp__g">
-            {work.map((p) => (
-              <Link href={`/projects/${p.slug}`} className="bp__c" key={p.slug}>
-                <ProjectImage p={p} />
-                <div className="bp__m">
-                  <p className="label" data-scramble>{p.name}</p>
-                  <span className="dim"># {p.tags[0]}</span>
-                </div>
-              </Link>
-            ))}
-          </div>
+          <div className="sv-end sv-end--t"><Lines className="h2" lines={data.workTitle.map((t, i) => ({ t, dim: i === 1, cls: i === 1 ? "ind1" : undefined }))} /></div>
+          <div className="bp__g">{work.map((p) => (
+            <Link href={`/projects/${p.slug}`} className="bp__c" key={p.slug}>
+              <ProjectImage p={p} /><div className="bp__m"><p className="label" data-scramble>{p.name}</p><span className="dim"># {p.tags[0]}</span></div>
+            </Link>
+          ))}</div>
           <div className="bp__go" data-r><Link className="lnk" href="/projects">Усі проєкти <Arrow /></Link></div>
         </div>
       </section>
-
-      <PricingCards left="Price" right="Формат співпраці" cards={BRANDING_PRICING} cta="Подати запит" />
-      <SectionFaq items={BRANDING.faq} text="Зібрали запитання, які найчастіше виникають перед стартом брендингу. Якщо вашого тут немає, поставте його напряму." />
-      <SectionCta q="Ваш бренд" text="Розкажіть, що відбувається з брендом зараз і куди ви хочете його привести." tag="Contact us" form="flower" lines={[{ t: "Може", dim: true, cls: "ca__r1" }, { t: "говорити", cls: "ca__ind" }, { t: "чіткіше", dim: true }]} />
-    </>
-  );
-}
-
-function ServicePage({ s }: { s: Service }) {
+    ),
+    pricing: () => <PricingCards left={data.pricingLeft} right={data.pricingRight} cards={data.pricing} cta={data.pricingCta} />,
+    faq: () => <SectionFaq items={data.faq} lines={data.faqTitle.map((t, i) => ({ t, dim: i === 1 }))} text={data.faqText} />,
+    cta: () => <SectionCta q={data.ctaQ} text={data.ctaText} tag={data.ctaTag} form={data.form} action={data.ctaAction} lines={data.ctaLines.map((t, i) => ({ t, dim: i === 0 || i === data.ctaLines.length - 1, cls: i === 1 ? "ca__ind" : i === 0 ? "ca__r1" : undefined }))} />,
+  };
   return (
     <>
-      <Hero s={s} side={s.lead} sideRest={s.rest} action="Розрахувати вартість" />
-      <section className="sec g4 bn">
-        <div className="wrap bn__g">
-          <Label className="bn__l">Склад послуги</Label>
-          <div>
-            <Lines className="h2" lines={[{ t: "Що входить" }, { t: "у цей напрям", dim: true }]} />
-            <ul className="bn__list bn__list--2">
-              {s.tags.map((t, i) => (
-                <li key={t} data-r>
-                  <span className="idx">[ {String.fromCharCode(65 + i)} ]</span>
-                  <b>{t}</b>
-                </li>
-              ))}
-            </ul>
-            <div className="bn__s">
-              <p data-r>{s.accordion}</p>
-              <div data-r><RequestButton>Обговорити проєкт</RequestButton></div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <SectionProcess title={[{ t: "Зрозумілий процес" }, { t: "від задачі", dim: true, cls: "sh__i1" }, { t: "до запуску", cls: "sh__i2" }]} />
-      <PricingCards left="Price" right="Формат співпраці" cards={PRICING} cta="Подати запит" />
-      <SectionFaq />
-      <SectionCta />
+      <Hero s={s} side={data.hero} sideRest={data.heroRest} action={data.heroAction} form={data.form} />
+      {data.sectionOrder.map((section, index) => <div key={`${section}-${index}`}>{sections[section]()}</div>)}
     </>
   );
 }
@@ -170,5 +118,6 @@ export default async function Page({ params }: Props) {
   const { slug } = await params;
   const s = SERVICES.find((x) => x.slug === slug);
   if (!s) notFound();
-  return s.slug === "branding" ? <BrandingPage s={s} /> : <ServicePage s={s} />;
+  const data = await getServicePageData(s);
+  return <FullServicePage s={s} data={data} />;
 }

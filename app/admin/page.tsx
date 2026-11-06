@@ -97,6 +97,7 @@ export default async function AdminPage() {
           <div><span className="admin-kicker">ОГЛЯД САЙТУ</span><h1>Відвідування</h1></div>
           <p>Час у часовому поясі Europe/Chisinau · IP зберігаються {visitRetentionDays} днів</p>
         </div>
+        <Link className="admin-service-shortcut" href="/admin/services">Редагувати сторінки послуг <span>↗</span></Link>
 
         {setupMessage ? (
           <div className="admin-notice"><b>Потрібне налаштування бази</b><p>{setupMessage}</p></div>

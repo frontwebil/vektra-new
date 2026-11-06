@@ -4,13 +4,20 @@ import { RequestButton } from "@/components/RequestButton";
 import { Lines, PricingCards, SectionCta, SectionFaq, SectionHead, SectionProcess } from "@/components/sections";
 import { Crumbs, Star, Tags, TextLink } from "@/components/ui";
 import { PRICING, SERVICES } from "@/lib/content";
+import { getServicePageData } from "@/lib/service-pages";
 
 export const metadata: Metadata = {
   title: "Послуги",
   description: "Стратегія та брендинг, UX/UI дизайн, розробка, digital, тестування й автоматизація в одній команді.",
 };
 
-export default function ServicesPage() {
+export const dynamic = "force-dynamic";
+
+export default async function ServicesPage() {
+  const serviceData = await Promise.all(SERVICES.map(async (service) => ({
+    service,
+    data: await getServicePageData(service),
+  })));
   return (
     <>
       <section className="sec g4 sv-hero" data-hero>
@@ -28,7 +35,7 @@ export default function ServicesPage() {
       <section className="sec g1 sv-list">
         <div className="wrap">
           <SectionHead left="Our services" right="Послуги" className="sh--c" lines={[{ t: "Від окремої" }, { t: "задачі до повного", dim: true }, { t: "запуску", cls: "sh__end" }]} />
-          {SERVICES.map((s) => (
+          {serviceData.map(({ service: s, data }) => (
             <article className="sv" id={s.slug} key={s.slug}>
               <div className="sv__t">
                 <span className="idx" data-r>[ {s.index} / 06 ]</span>
@@ -39,7 +46,7 @@ export default function ServicesPage() {
               </div>
               <div className="sv__v">
                 <p className="label" data-scramble>{s.cap}</p>
-                <Illustration name={s.form} className="sv__il" density={1.2} brightness={1.1} />
+                <Illustration name={data.form} className="sv__il" density={1.2} brightness={1.1} />
                 <TextLink href={`/services/${s.slug}`}>Дізнатися більше</TextLink>
               </div>
             </article>
