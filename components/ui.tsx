@@ -24,7 +24,7 @@ export function Mark({ className = "" }: { className?: string }) {
 /** Рядок заголовка: виїжджає з-під маски. dim — другий тон заголовка. */
 export function Ln({ children, dim, className = "" }: { children: ReactNode; dim?: boolean; className?: string }) {
   return (
-    <span className={`ln ${dim ? "dim" : ""} ${className}`} style={{whiteSpace:'pre-line'}}>
+    <span className={`ln ${dim ? "dim" : ""} ${className}`}>
       <span className="ln__i">{children}</span>
     </span>
   );
