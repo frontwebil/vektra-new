@@ -55,7 +55,7 @@ npm start
 `hero`, `flower`, `lattice`, `knot`, `wave`, `sphere`, `infinity`, `vortex`, `web`.
 Потім оновіть `w` і `h` у `lib/illustrations.ts`. Форма, частинки й рух перебудуються самі. Підходить чорний або прозорий фон.
 
-Фото проєктів так само замінюються в `public/images`: `pumplab.jpg`, `clave.jpg`, `softh-cto.jpg`.
+Фото проєктів так само замінюються в `public/images`: `pumplab.webp`, `clave.webp`, `softh-cto.webp`.
 
 ## Куди приходять заявки
 
