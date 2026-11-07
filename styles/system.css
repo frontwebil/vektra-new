@@ -1944,7 +1944,7 @@ a:hover .media img {
 }
 .ct-direct__g {
   display: grid;
-  grid-template-columns: 66rem 66rem;
+  grid-template-columns: 50% 50%;
 }
 .ct-direct h2 .ln:nth-child(2) {
   margin-left: 8rem;
@@ -2016,7 +2016,6 @@ a:hover .media img {
 .bl-feat__v {
   position: relative;
   height: 72rem;
-  border-right: 1px solid var(--line);
   overflow: hidden;
 }
 .bl-feat__t {
