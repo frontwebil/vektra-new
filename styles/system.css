@@ -1506,7 +1506,7 @@ a:hover .media img {
 .ab-who__p {
   padding-left: 0;
   width: 50rem;
-  margin-left: 16.5rem;
+  margin-left: 14.5rem;
 }
 .ab-num {
   padding: 0 0 0rem;
@@ -1517,7 +1517,7 @@ a:hover .media img {
 }
 .ab-num__row {
   display: grid;
-  grid-template-columns: 66rem 33rem 33rem;
+  grid-template-columns: 50% 25% 25%;
   align-items: end;
   border-top: 1px solid var(--line);
   padding: 2.4rem 0 3.2rem;
