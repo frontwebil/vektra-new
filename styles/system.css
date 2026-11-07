@@ -1591,9 +1591,10 @@ a:hover .media img {
 }
 .ab-ex__g {
   display: grid;
-  grid-template-columns: 82.5rem 49.5rem;
+  grid-template-columns: 62% 38%;
   margin-top: 4rem;
   border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
 }
 .ab-ex__i {
   display: block;
@@ -1607,6 +1608,10 @@ a:hover .media img {
   background: none;
   text-align: left;
   width: 100%;
+}
+
+.ab-ex__i:last-child {
+  border: none;
 }
 .ab-ex__i b {
   display: block;
@@ -1622,7 +1627,7 @@ a:hover .media img {
 }
 .ab-ex__v {
   position: relative;
-  border-bottom: 1px solid var(--line);
+  /* border-bottom: 1px solid var(--line); */
   border-left: 1px solid var(--line);
 }
 .ab-ex__cap {
