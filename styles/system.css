@@ -950,16 +950,15 @@ a:hover .media img {
   padding-top: 18rem;
 }
 .cs-hero__name {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 33rem 1fr auto;
+  align-items: baseline;
   margin-bottom: 6rem;
 }
-.cs-hero__h .ln:nth-child(2) {
-  margin-left: 16.5rem;
-}
+/* Кількість полів метаданих змінна: колонки ділять ширину порівну */
 .cs-meta {
   display: grid;
-  grid-template-columns: repeat(4, 33rem);
+  grid-template-columns: repeat(var(--n, 4), minmax(0, 1fr));
   margin-top: 8rem;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
@@ -987,13 +986,17 @@ a:hover .media img {
   overflow: hidden;
   margin-top: 0;
 }
-.cs-visual .media {
+.cs-visual__m {
   position: absolute;
   left: 39rem;
   top: 9rem;
   width: 99rem;
   height: 75rem;
   z-index: 1;
+}
+.cs-visual__m > * {
+  height: 100%;
+  aspect-ratio: auto;
 }
 .cs-visual__cta {
   position: absolute;
@@ -1004,25 +1007,56 @@ a:hover .media img {
 .cs-sec {
   padding: 0 0 14rem;
 }
+/* Огляд: заголовок на всю ширину, текст зміщений у праву половину, теги — у першу колонку */
 .cs-ov {
   display: grid;
-  grid-template-columns: 66rem 66rem;
+  grid-template-columns: repeat(4, 33rem);
+  row-gap: 10rem;
   padding-top: 8rem;
+}
+.cs-ov__h {
+  grid-column: 1 / -1;
+}
+.cs-ov__tags {
+  grid-column: 1 / 3;
+  align-self: end;
+}
+.cs-ov__body {
+  grid-column: 3 / 5;
 }
 .cs-ov__body p + p {
   margin-top: 2.4rem;
 }
-.cs-ch__h {
+/* Великий заголовок секції кейсу */
+.cs-h {
   padding: 6rem 0 10rem;
 }
-.cs-ch__h .ln:nth-child(2) {
+/* Зсув рядків заголовка по сітці (поле indent у даних кейсу) */
+.ln.cs-i1 {
+  margin-left: 16.5rem;
+}
+.ln.cs-i2 {
   margin-left: 33rem;
+}
+.ln.cs-i3 {
+  margin-left: 49.5rem;
+}
+.ln.cs-i4 {
+  margin-left: 66rem;
+}
+/* Короткий супровідний текст під заголовком, у четвертій колонці */
+.cs-lead {
+  width: 33rem;
+  margin: -4rem 0 8rem auto;
 }
 .cs-ch__grid {
   display: grid;
   grid-template-columns: repeat(4, 33rem);
   border-top: 1px solid var(--line2);
   border-bottom: 1px solid var(--line2);
+}
+.cs-ch__grid--3 {
+  grid-template-columns: 66rem 33rem 33rem;
 }
 .cs-ch__cell {
   position: relative;
@@ -1080,6 +1114,12 @@ a:hover .media img {
   display: flex;
   gap: 2rem;
   align-items: baseline;
+}
+.cs-ap__h {
+  position: absolute;
+  left: 0;
+  top: 12rem;
+  z-index: 2;
 }
 .cs-ap__item {
   padding: 6rem 0 6rem;
@@ -1149,9 +1189,21 @@ a:hover .media img {
   border-right: 1px solid var(--line2);
   overflow: hidden;
 }
-.cs-ds > div:nth-child(1) {
+.cs-ds__c--lg {
   grid-column: span 2;
   grid-row: span 2;
+}
+.cs-ds__c--wide {
+  grid-column: span 2;
+}
+.cs-ds__c--tall {
+  grid-row: span 2;
+}
+.cs-ds__c .h3 {
+  margin-bottom: 1.2rem;
+}
+.cs-ds__c .cs-m {
+  margin-top: 2rem;
 }
 .cs-ds__k {
   color: var(--w40);
@@ -1172,14 +1224,27 @@ a:hover .media img {
   flex: 1;
   border: 1px solid var(--line);
 }
-.cs-res__h {
-  padding: 6rem 0 10rem;
+/* Реальні метрики результату: кількість колонок = кількість цифр */
+.cs-mx {
+  display: grid;
+  grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr));
+  border-top: 1px solid var(--line2);
+  margin-bottom: 10rem;
 }
-.cs-res__h .ln:nth-child(2) {
-  margin-left: 16.5rem;
+.cs-mx__c {
+  padding: 4rem 2rem 0 0;
 }
-.cs-res__h .ln:nth-child(3) {
-  margin-left: 49.5rem;
+.cs-mx__c + .cs-mx__c {
+  padding-left: 2rem;
+  border-left: 1px solid var(--line2);
+}
+.cs-mx__v {
+  margin-bottom: 4rem;
+  white-space: nowrap;
+}
+.cs-mx__c p.dim {
+  margin-top: 1.2rem;
+  max-width: 30rem;
 }
 .cs-res__row {
   display: grid;
@@ -1203,8 +1268,8 @@ a:hover .media img {
   letter-spacing: -0.06em;
   font-weight: 500;
 }
-.cs-q__t span {
-  color: var(--w50);
+.cs-q__l {
+  margin-bottom: 6rem;
 }
 .cs-q__by {
   display: flex;
@@ -1250,6 +1315,288 @@ a:hover .media img {
   right: 6rem;
   top: 60rem;
   z-index: 2;
+}
+.cs-next__k {
+  position: absolute;
+  left: 6rem;
+  top: 9.2rem;
+  z-index: 2;
+}
+
+/* ---------- Медіа-слот кейсу ---------------------------------------------- */
+/* Пропорції з даних (ratio) або з контейнера через --r: місце зарезервоване до завантаження */
+.cs-m {
+  position: relative;
+  width: 100%;
+  aspect-ratio: var(--r, 16 / 10);
+  overflow: hidden;
+}
+.cs-m__v {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.cs-m__cap {
+  position: absolute;
+  left: 2rem;
+  bottom: 1.6rem;
+  z-index: 2;
+  color: var(--w50);
+}
+.cs-m--ui > .ui {
+  position: absolute;
+  inset: 0;
+  height: auto;
+}
+.cs-m--il {
+  border: 1px solid var(--line);
+  background: #0a0a0a;
+}
+.cs-m--ph {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 2rem;
+  padding: 2rem;
+  border: 1px solid var(--line);
+  background: #08080a radial-gradient(#1f1f1f 1px, transparent 1.2px) 0 0 / 1.6rem 1.6rem;
+}
+.cs-m--ph .idx {
+  white-space: normal;
+}
+/* Ноутбук + телефон */
+.cs-dev {
+  position: relative;
+  padding-bottom: 8rem;
+}
+.cs-dev__d {
+  width: 86%;
+  --r: 16 / 10;
+}
+.cs-dev__m {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 24%;
+  z-index: 2;
+  --r: 9 / 19;
+}
+.cs-dev__m > * {
+  box-shadow: 0 0 0 1px var(--w20);
+}
+
+/* ---------- Модулі рішення: різні макети для ритму сторінки ---------------- */
+.cs-s {
+  position: relative;
+  padding: 8rem 0;
+  border-top: 1px solid var(--line);
+}
+.cs-s__t .idx {
+  display: block;
+}
+.cs-s__t h3 {
+  margin: 2rem 0 1.6rem;
+}
+.cs-s__t p {
+  max-width: 44rem;
+}
+/* A — на всю ширину контенту */
+.cs-s--wide {
+  --r: 132 / 66;
+}
+.cs-s--wide .cs-s__t {
+  display: grid;
+  grid-template-columns: 33rem 66rem 33rem;
+  align-items: end;
+  margin-bottom: 4rem;
+}
+.cs-s--wide .cs-s__t h3 {
+  margin: 0;
+}
+/* B — 50 / 50 */
+.cs-s--split {
+  display: grid;
+  grid-template-columns: 66rem 66rem;
+  --r: 66 / 56;
+}
+.cs-s--split .cs-s__t {
+  align-self: end;
+  padding-right: 6.6rem;
+}
+.cs-s--split.is-r .cs-s__t {
+  order: 2;
+  padding: 0 0 0 6.6rem;
+}
+/* C — два пов'язані екрани зі зсувом */
+.cs-s--pair {
+  display: grid;
+  grid-template-columns: 66rem 66rem;
+  grid-template-rows: auto 1fr;
+  --r: 66 / 80;
+}
+.cs-s__a {
+  grid-row: 1 / 3;
+}
+.cs-s--pair .cs-s__t {
+  padding: 0 0 8rem 6.6rem;
+}
+.cs-s__b {
+  align-self: end;
+  padding-left: 6.6rem;
+  --r: 59.4 / 42;
+}
+/* D — сцена з пристроями на панелі з частинками */
+.cs-stage {
+  position: relative;
+  display: grid;
+  grid-template-columns: 33rem 1fr;
+  gap: 4rem;
+  padding: 5.2rem;
+  border: 1px solid var(--w20);
+  background: #0a0a0a;
+  overflow: hidden;
+}
+.cs-stage > .fx {
+  opacity: 0.7;
+}
+.cs-stage .cs-s__t,
+.cs-stage .cs-dev {
+  position: relative;
+  z-index: 1;
+}
+.cs-stage .cs-s__t {
+  align-self: start;
+}
+/* E — кадрований фрагмент: .cs-sol вище */
+.cs-sol {
+  --r: 99 / 66;
+}
+/* F — кінематографічний кадр від краю до краю */
+.cs-s--cine {
+  margin: 0 calc(var(--m) * -1);
+  padding-bottom: 0;
+  --r: 144 / 64;
+}
+.cs-s--cine .cs-s__t {
+  display: grid;
+  grid-template-columns: 33rem 66rem 33rem;
+  align-items: baseline;
+  padding: 2.4rem var(--m) 8rem;
+}
+.cs-s--cine .cs-s__t h3 {
+  margin: 0;
+  font-size: 2.4rem;
+  line-height: 2.4rem;
+}
+
+/* ---------- Experience: головний екран + зміщені другорядні ---------------- */
+.cs-xp {
+  display: grid;
+  grid-template-columns: repeat(4, 33rem);
+  row-gap: 10rem;
+  align-items: start;
+}
+.cs-xp__i {
+  position: relative;
+  margin: 0;
+}
+.cs-xp__i figcaption {
+  display: block;
+  margin-top: 1.6rem;
+}
+.cs-xp__i:nth-child(1) {
+  grid-column: 1 / 4;
+  grid-row: 1;
+  --r: 16 / 10;
+}
+.cs-xp__i:nth-child(2) {
+  grid-column: 4;
+  grid-row: 1;
+  align-self: end;
+  width: 26rem;
+  margin: 0 0 -8rem -6rem;
+  z-index: 2;
+  --r: 9 / 19;
+}
+.cs-xp__i:nth-child(3) {
+  grid-column: 1 / 3;
+  --r: 4 / 3;
+}
+.cs-xp__i:nth-child(4) {
+  grid-column: 3 / 5;
+  margin-top: 16rem;
+  padding-left: 6.6rem;
+  --r: 4 / 3;
+}
+.cs-xp__i:nth-child(n + 5) {
+  grid-column: span 2;
+  --r: 4 / 3;
+}
+
+/* ---------- Technology: функції технологій, а не логотипи ------------------ */
+.cs-tc {
+  display: grid;
+  grid-template-columns: 66rem 66rem;
+}
+.cs-tc__l {
+  position: sticky;
+  top: 12rem;
+  align-self: start;
+  padding-right: 6.6rem;
+}
+.cs-tc__stack {
+  display: grid;
+  gap: 1.6rem;
+  margin-top: 2.4rem;
+}
+.cs-tc__stack li {
+  color: var(--w50);
+}
+.cs-tc__i {
+  display: grid;
+  grid-template-columns: 8rem 1fr;
+  padding: 4rem 0;
+  border-top: 1px solid var(--line);
+}
+.cs-tc__i:last-child {
+  border-bottom: 1px solid var(--line);
+}
+.cs-tc__i h3 {
+  margin-bottom: 1.6rem;
+}
+.cs-tc__i p {
+  max-width: 44rem;
+}
+
+/* ---------- Project info: редакційна таблиця ------------------------------ */
+.cs-info {
+  display: grid;
+  grid-template-columns: 33rem 99rem;
+  padding-top: 4rem;
+}
+.cs-info__l p + p {
+  margin-top: 1.2rem;
+}
+.cs-info__r {
+  display: grid;
+  grid-template-columns: 33rem 66rem;
+  align-items: baseline;
+  padding: 2rem 0;
+  border-top: 1px solid var(--line);
+}
+.cs-info__r:last-child {
+  border-bottom: 1px solid var(--line);
+}
+.cs-info dt {
+  color: var(--w40);
+  font-size: 1.4rem;
+  line-height: 2.4rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
 }
 
 /* Схеми інтерфейсу (замінюються реальними макетами) */
