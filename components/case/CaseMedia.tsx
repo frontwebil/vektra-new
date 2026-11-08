@@ -3,7 +3,6 @@ import type { CSSProperties } from "react";
 import { Illustration } from "@/components/Illustration";
 import type { Media } from "@/lib/cases";
 import { CaseVideo } from "./CaseVideo";
-import { SCHEMES } from "./Schemes";
 
 type Props = { m: Media; className?: string; priority?: boolean; sizes?: string };
 
@@ -43,13 +42,6 @@ export function CaseMedia({ m, className = "", priority, sizes = "(max-width: 76
       return (
         <div className={`cs-m cs-m--il ${className}`} style={style}>
           <Illustration name={m.name} className="fx" zoom={m.zoom} density={m.density} />
-          {cap}
-        </div>
-      );
-    case "scheme":
-      return (
-        <div className={`cs-m cs-m--ui ${className}`} style={style}>
-          {SCHEMES[m.name]}
           {cap}
         </div>
       );

@@ -200,7 +200,11 @@ export function DotMatrix({ pattern }: { pattern: "ripple" | "lattice" | "sweep"
   return <canvas className="matrix" ref={ref} aria-hidden="true" />;
 }
 
-/** Фільтр за категоріями: ховає елементи, чий data-cats не містить обраний ключ. */
+/**
+ * Фільтр за категоріями: ховає елементи, чий data-cats не містить обраний ключ.
+ * Видимим елементам ставить is-even через один (0, 2, 4…), щоб чергування макета
+ * рахувалося лише серед показаних карток.
+ */
 export function CatFilter({ scope, options, label, emptyText }: { scope: string; options: { key: string; label: string }[]; label: string; emptyText: string }) {
   const [active, setActive] = useState("all");
   const [empty, setEmpty] = useState(false);
@@ -217,6 +221,7 @@ export function CatFilter({ scope, options, label, emptyText }: { scope: string;
     items.forEach((el) => {
       const on = active === "all" || (el.dataset.cats || "").split(" ").includes(active);
       el.classList.toggle("is-hidden", !on);
+      el.classList.toggle("is-even", on && shown % 2 === 0);
       if (on) shown++;
     });
     setEmpty(shown === 0);

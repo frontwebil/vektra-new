@@ -2,9 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import { Illustration } from "@/components/Illustration";
-import { RequestButton } from "@/components/RequestButton";
 import { Lines, ProjectImage } from "@/components/sections";
-import { Arrow, Label, Star, Tags } from "@/components/ui";
+import { Arrow, Label, Tags } from "@/components/ui";
 import type { CaseStudy, CaseView, Line, Media, Rich, SolutionModule } from "@/lib/cases";
 import type { Project } from "@/lib/content";
 import { CaseMedia } from "./CaseMedia";
@@ -72,14 +71,9 @@ export function CaseHero({ c, index }: { c: CaseView; index: string }) {
         </div>
       </section>
 
-      <section className="sec g3 cs-visual">
-        <Illustration name={c.hero.illustration ?? "wave"} className="fx cs-visual__il" density={1.1} zoom={0.9} />
-        <Star className="star--a" style={{ left: "38rem", top: "7.8rem" }} />
-        <div className="cs-visual__m">
-          <CaseMedia m={c.hero.media} priority sizes="(max-width: 767px) 100vw, 70vw" />
-        </div>
-        <div className="cs-visual__cta">
-          {m.website ? <Live href={m.website} className="btn" /> : <RequestButton>Обговорити схожий проєкт</RequestButton>}
+      <section className="sec cs-visual">
+        <div className="wrap">
+          <CaseMedia m={c.hero.media} priority sizes="(max-width: 767px) 100vw, 92vw" />
         </div>
       </section>
     </>

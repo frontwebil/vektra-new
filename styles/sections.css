@@ -912,6 +912,10 @@ a:hover > .roll::after {
   display: flex;
   flex-direction: column;
 }
+/* Лівий заголовок переноситься, а не ховається під маску рядка */
+.ca__l .ln {
+  white-space: normal;
+}
 .ca__l p {
   width: 42.7rem;
   margin-top: 3.2rem;
@@ -922,6 +926,7 @@ a:hover > .roll::after {
 .ca__r {
   position: relative;
   z-index: 2;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -931,12 +936,16 @@ a:hover > .roll::after {
   text-transform: uppercase;
   font-weight: 600;
 }
+/* Заголовок праворуч не обрізається: довгий рядок спершу виходить ліворуч у вільне місце
+   (до 12rem — далі абзац лівої колонки), а ще довший переноситься */
 .ca__r h2 {
-  width: 55rem;
+  width: max-content;
+  min-width: 55rem;
+  max-width: calc(100% + 12rem);
 }
 .ca__r .ln {
   text-align: right;
-  white-space: nowrap;
+  white-space: normal;
 }
 .ca__r .ca__ind {
   text-align: left;
@@ -1437,29 +1446,11 @@ a:hover > .roll::after {
 .pj-hero__side p {
   margin: 0;
 }
-.fp__name {
-  margin-top: 2.4rem;
-}
-.fp__col {
-  display: grid;
-  gap: 2.8rem;
-  justify-items: start;
-}
-.fp__mlink {
-  position: relative;
+.fp__m {
   display: block;
 }
-.fp--a .media,
-.fp--b .media,
-.fp--c .media {
+.fp .media {
   width: 100%;
-}
-.fp--c .media {
-  position: relative;
-  height: 100%;
-}
-.fp--c .fp__panel > .fx {
-  opacity: 0.8;
 }
 .pj-hero__h .ln,
 .ab-hero__h .ln,
@@ -1510,9 +1501,6 @@ a:hover > .roll::after {
   position: static;
   margin-bottom: 4rem;
 }
-.cs-visual__il {
-  inset: 4% 58% 4% 2%;
-}
 .cs-sec--ap {
   padding-bottom: 0;
 }
@@ -1540,32 +1528,6 @@ a:hover > .roll::after {
 }
 .cs-q__by img {
   border-radius: 50%;
-}
-.ui--m {
-  height: 56rem;
-}
-.ui-cat__f b {
-  margin-top: 1rem;
-}
-.ui-co__sum b {
-  font-weight: 500;
-  color: #fff;
-}
-.ui-ad__r {
-  display: contents;
-}
-.ui-ad__r > span {
-  height: 6.4rem;
-  display: flex;
-  align-items: center;
-  padding: 0 2.4rem;
-  border-bottom: 1px solid var(--line2);
-}
-.ui-ad__r i {
-  font-style: normal;
-}
-.ui-ad__r .ui-pill {
-  font-style: normal;
 }
 .ab-hero__il {
   inset: 8% 2% 26% 44%;

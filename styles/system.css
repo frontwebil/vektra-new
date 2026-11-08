@@ -763,14 +763,9 @@ a:hover .media img {
   position: relative;
   padding: 12rem 0;
 }
-.fp + .fp {
+/* Верхній відступ лише в першої видимої картки: прихована фільтром не забирає його в наступної */
+.fp:not(.is-hidden) ~ .fp {
   padding-top: 0;
-}
-.fp__top {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin-bottom: 4rem;
 }
 .fp dl {
   display: grid;
@@ -796,60 +791,29 @@ a:hover .media img {
   font-style: normal;
   color: var(--w50);
 }
-.fp--a .fp__grid {
-  display: grid;
-  grid-template-columns: 33rem 99rem;
-}
-.fp--a .fp__txt {
-  padding-right: 4rem;
-  display: flex;
-  flex-direction: column;
-  gap: 4rem;
-  position: sticky;
-  top: 12rem;
-  align-self: start;
-}
-.fp--a .media {
-  height: 75rem;
-}
-.fp--b .fp__grid {
+/* Картка проєкту: фото й текст 50 / 50, сторони чергуються (is-even — текст ліворуч) */
+.fp__grid {
   display: grid;
   grid-template-columns: 66rem 66rem;
   align-items: end;
 }
-.fp--b .media {
+.fp .media {
   height: 50.4rem;
 }
-.fp--b .fp__txt {
+.fp__txt {
   padding-left: 6.6rem;
   display: flex;
   flex-direction: column;
   gap: 3.2rem;
 }
-.fp--b .fp__dl {
+.fp__dl {
   grid-template-columns: 1fr 1fr;
 }
-.fp--c .fp__panel {
-  position: relative;
-  display: grid;
-  grid-template-columns: 66rem 1fr;
-  border: 1px solid var(--line);
-  height: 62rem;
-  overflow: hidden;
+.fp.is-even .fp__m {
+  order: 2;
 }
-.fp--c .media {
-  height: 100%;
-}
-.fp--c .fp__txt {
-  position: relative;
-  padding: 4rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-}
-.fp--c .fp__dl {
-  grid-template-columns: 1fr 1fr;
+.fp.is-even .fp__txt {
+  padding: 0 6.6rem 0 0;
 }
 .ap {
   padding: 0 0 12rem;
@@ -980,29 +944,17 @@ a:hover .media img {
   text-transform: uppercase;
   letter-spacing: -0.02em;
 }
+/* Головне фото кейсу: на всю ширину контейнера (.wrap) */
 .cs-visual {
   position: relative;
-  height: 96rem;
-  overflow: hidden;
   margin-top: 0;
+  padding: 0;
 }
-.cs-visual__m {
-  position: absolute;
-  left: 39rem;
-  top: 9rem;
-  width: 99rem;
-  height: 75rem;
-  z-index: 1;
-}
-.cs-visual__m > * {
-  height: 100%;
-  aspect-ratio: auto;
-}
-.cs-visual__cta {
-  position: absolute;
-  left: 6rem;
-  bottom: 12rem;
-  z-index: 2;
+.cs-visual .wrap > .cs-m,
+.cs-visual .wrap > .cs-dev {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: 100svh;
 }
 .cs-sec {
   padding: 0 0 14rem;
@@ -1346,11 +1298,6 @@ a:hover .media img {
   z-index: 2;
   color: var(--w50);
 }
-.cs-m--ui > .ui {
-  position: absolute;
-  inset: 0;
-  height: auto;
-}
 .cs-m--il {
   border: 1px solid var(--line);
   background: #0a0a0a;
@@ -1597,219 +1544,6 @@ a:hover .media img {
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: -0.02em;
-}
-
-/* Схеми інтерфейсу (замінюються реальними макетами) */
-.ui {
-  position: relative;
-  height: 66rem;
-  background: #08080a;
-  border: 1px solid var(--line);
-  overflow: hidden;
-  font-size: 1.3rem;
-  line-height: 1.8rem;
-  letter-spacing: -0.02em;
-  font-weight: 400;
-}
-.ui__cap {
-  position: absolute;
-  right: 1.6rem;
-  bottom: 1.2rem;
-  color: var(--w20);
-  z-index: 3;
-}
-.ui__bar {
-  display: flex;
-  align-items: center;
-  gap: 2.4rem;
-  height: 5.6rem;
-  padding: 0 2.4rem;
-  border-bottom: 1px solid var(--line2);
-  color: var(--w50);
-}
-.ui__bar b {
-  font-weight: 600;
-  color: #fff;
-  letter-spacing: -0.05em;
-  font-size: 1.6rem;
-  margin-right: auto;
-}
-.sk {
-  display: block;
-  height: 0.8rem;
-  border-radius: 0.2rem;
-  background: #1f1f1f;
-}
-.sk--w {
-  background: #b2b2b2;
-}
-.ui-cat {
-  display: grid;
-  grid-template-columns: 24rem 1fr;
-  height: calc(100% - 5.6rem);
-}
-.ui-cat__f {
-  padding: 2.4rem;
-  border-right: 1px solid var(--line2);
-  display: flex;
-  flex-direction: column;
-  gap: 1.4rem;
-  color: var(--w50);
-}
-.ui-cat__f b {
-  color: #fff;
-  font-weight: 500;
-  margin-top: 1rem;
-}
-.ui-chk {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-.ui-chk i {
-  width: 1.4rem;
-  height: 1.4rem;
-  border: 1px solid var(--w40);
-  border-radius: 0.2rem;
-  flex: none;
-}
-.ui-chk.on i {
-  background: #fff;
-  border-color: #fff;
-}
-.ui-cat__g {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: 1fr;
-}
-.ui-p {
-  padding: 1.6rem;
-  border-right: 1px solid var(--line2);
-  border-bottom: 1px solid var(--line2);
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-}
-.ui-p__v {
-  flex: 1;
-  min-height: 0;
-  position: relative;
-  background-image: radial-gradient(#292929 1px, transparent 1.2px);
-  background-size: 1.2rem 1.2rem;
-  margin-bottom: 0.8rem;
-}
-.ui-p__chips {
-  display: flex;
-  gap: 0.4rem;
-}
-.ui-p__chips i {
-  height: 2.2rem;
-  width: 4.4rem;
-  border-radius: 2rem;
-  background: var(--panel);
-}
-.ui-p__chips i:first-child {
-  background: #fff;
-}
-.ui-co {
-  display: grid;
-  grid-template-columns: 1fr 34rem;
-  height: calc(100% - 5.6rem);
-}
-.ui-co__steps {
-  display: flex;
-  gap: 3.2rem;
-  padding: 3.2rem 4rem 0;
-  color: var(--w40);
-}
-.ui-co__steps .on {
-  color: #fff;
-}
-.ui-co__form {
-  padding: 4rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3.6rem 3.2rem;
-  align-content: start;
-}
-.ui-in {
-  border-bottom: 1px solid var(--w40);
-  padding-bottom: 1.2rem;
-  color: var(--w50);
-}
-.ui-in.w {
-  grid-column: span 2;
-}
-.ui-co__sum {
-  border-left: 1px solid var(--line2);
-  padding: 3.2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-.ui-co__row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 2rem;
-}
-.ui-btn {
-  margin-top: auto;
-  height: 4.8rem;
-  border-radius: 4rem;
-  background: #fff;
-  color: #000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
-  text-transform: uppercase;
-  font-size: 1.3rem;
-}
-.ui-ad {
-  display: grid;
-  grid-template-columns: 22rem 1fr;
-  height: calc(100% - 5.6rem);
-}
-.ui-ad__nav {
-  border-right: 1px solid var(--line2);
-  padding: 2.4rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.6rem;
-  color: var(--w50);
-}
-.ui-ad__nav .on {
-  color: #fff;
-}
-.ui-ad__t {
-  display: grid;
-  grid-template-columns: 2.4fr 1fr 1fr 1fr;
-  align-content: start;
-}
-.ui-ad__t > * {
-  height: 6.4rem;
-  display: flex;
-  align-items: center;
-  padding: 0 2.4rem;
-  border-bottom: 1px solid var(--line2);
-}
-.ui-ad__t .hd2 {
-  height: 4.8rem;
-  color: var(--w40);
-}
-.ui-pill {
-  height: 2.4rem;
-  padding: 0 1.2rem;
-  border-radius: 2rem;
-  background: var(--panel);
-  display: inline-flex;
-  align-items: center;
-  color: var(--w50);
-}
-.ui-pill.on {
-  color: #000;
-  background: #fff;
 }
 
 /* ======================= 05 — ABOUT ======================================= */

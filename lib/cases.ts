@@ -29,9 +29,6 @@ export type Rich = string | { t: string; dim?: boolean }[];
 
 export type Item = { title: string; text: string };
 
-/** Схеми інтерфейсу, намальовані кодом. Тимчасова заміна реальним макетам. */
-export type SchemeName = "catalog" | "checkout" | "admin";
-
 type MediaBase = {
   /** Пропорції слота, напр. "16/9". Слот резервує місце до завантаження: без зсуву макета. */
   ratio?: string;
@@ -43,19 +40,20 @@ type MediaBase = {
  * Медіа-слот.
  * image — jpg / png / webp / avif / gif (gif віддається без оптимізації, щоб анімація не зламалась);
  * video — mp4 / webm: без звуку, по колу, вмикається лише у видимій зоні й ставиться на паузу поза нею;
- * illustration — частинки Vektra; scheme — схема інтерфейсу; device — ноутбук + телефон;
- * placeholder — порожній слот шаблону з підписом.
+ * illustration — частинки Vektra; device — ноутбук + телефон;
+ * placeholder — порожня заглушка під фото з підписом (поки немає реального скриншота).
  */
 export type Media =
   | (MediaBase & { type: "image"; src: string; alt: string; position?: string })
   | (MediaBase & { type: "video"; src: string | { src: string; type: string }[]; poster?: string; alt?: string })
   | (MediaBase & { type: "illustration"; name: IllustrationName; zoom?: number; density?: number })
-  | (MediaBase & { type: "scheme"; name: SchemeName })
   | (MediaBase & { type: "device"; desktop: Media; mobile: Media })
   | (MediaBase & { type: "placeholder"; label: string });
 
 /**
- * Макети модулів рішення. Чергуйте їх, щоб кейс читався як історія, а не галерея:
+ * Макети модулів рішення. Кількість модулів не обмежена: скільки об'єктів у solution.modules —
+ * стільки блоків «фото + заголовок + текст» на сторінці, нумерація [ 01 ], [ 02 ]… рахується сама.
+ * Чергуйте макети, щоб кейс читався як історія, а не галерея:
  * wide → closeup → split → cinematic → device → pair …
  *
  * wide      — медіа на всю ширину контенту, текст рядком над ним;        media[0]
@@ -152,6 +150,9 @@ function cover(p: Project): Media {
   return { type: "image", src: p.image, alt: p.alt };
 }
 
+/** Заглушка під фото: підпис + пропорції слота. Замініть на { type: "image", src, alt }, коли буде скриншот. */
+const ph = (label: string, ratio: string): Media => ({ type: "placeholder", label, ratio });
+
 const project = (slug: string) => PROJECTS.find((p) => p.slug === slug)!;
 
 /* ---------- Кейси -------------------------------------------------------- */
@@ -204,26 +205,26 @@ export const CASES: CaseStudy[] = [
     },
     solution: {
       headline: [{ t: "Одна система" }, { t: "для покупця", dim: true, indent: 2 }, { t: "й команди.", indent: 2 }],
-      note: "[ Схеми інтерфейсу. Замініть реальними макетами ]",
+      note: "[ Заглушки. Замініть реальними скриншотами ]",
       modules: [
         {
           layout: "wide",
           title: "Smart catalog",
           text: "Фільтри, категорії та варіації товарів спроєктовані так, щоб користувач швидко переходив від пошуку до покупки.",
-          media: [{ type: "scheme", name: "catalog", ratio: "132/66" }],
+          media: [ph("Smart catalog / screenshot", "132/66")],
         },
         {
           layout: "split",
           reverse: true,
           title: "Custom checkout",
           text: "Послідовний сценарій покупки без зайвих кроків і непотрібних полів.",
-          media: [{ type: "scheme", name: "checkout", ratio: "66/56" }],
+          media: [ph("Checkout / screenshot", "66/56")],
         },
         {
           layout: "closeup",
           title: "Admin system",
           text: "Власна система керування товарами, цінами, контентом і замовленнями.",
-          media: [{ type: "scheme", name: "admin", ratio: "99/56" }],
+          media: [ph("Admin panel / screenshot", "99/56")],
         },
       ],
     },
@@ -250,8 +251,6 @@ export const CASES: CaseStudy[] = [
 ];
 
 /* ---------- Майстер-шаблон ----------------------------------------------- */
-
-const ph = (label: string, ratio: string): Media => ({ type: "placeholder", label, ratio });
 
 /**
  * Еталон зі всіма секціями та всіма макетами модулів. Копіюйте його для нового кейсу.
@@ -306,7 +305,7 @@ export const CASE_TEMPLATE: CaseStudy = {
   },
   solution: {
     headline: [{ t: "[Solution" }, { t: "headline]", dim: true, indent: 2 }],
-    note: "[ 3–6 модулів. Чергуйте макети ]",
+    note: "[ Будь-яка кількість модулів. Чергуйте макети ]",
     modules: [
       { layout: "wide", title: "[Solution title]", text: "[Яку задачу вирішує модуль і що це дає користувачу.]", media: [ph("Wide media / animated UI", "132/66")] },
       { layout: "closeup", title: "[Solution title]", text: "[Яку задачу вирішує модуль і що це дає користувачу.]", media: [ph("UI close-up / cropped fragment", "99/62")] },
@@ -413,19 +412,20 @@ export function caseSlugs() {
  */
 export const CASE_ORDER = ["pumplab", "clave-shop", "softh-cto"];
 
-const ordered = () => [
+/** Усі проєкти в порядку CASE_ORDER; проєкти, яких там немає, — у кінці. */
+export const orderedProjects = (): Project[] => [
   ...CASE_ORDER.map((s) => PROJECTS.find((p) => p.slug === s)).filter((p): p is Project => Boolean(p)),
   ...PROJECTS.filter((p) => !CASE_ORDER.includes(p.slug)),
 ];
 
 export function caseIndex(c: CaseView) {
   if (c.index) return c.index;
-  const i = ordered().findIndex((p) => p.slug === c.slug);
+  const i = orderedProjects().findIndex((p) => p.slug === c.slug);
   return String(i + 1).padStart(2, "0");
 }
 
 export function nextProject(c: CaseView): Project {
-  const list = ordered();
+  const list = orderedProjects();
   if (c.next) {
     const n = list.find((p) => p.slug === c.next);
     if (n) return n;
