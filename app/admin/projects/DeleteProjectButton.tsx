@@ -1,6 +1,7 @@
 "use client";
 
 import { deleteProjectAction } from "./actions";
+import { SubmitButton } from "./SubmitButton";
 
 export function DeleteProjectButton({ slug, name, disabled }: { slug: string; name: string; disabled?: boolean }) {
   return (
@@ -11,7 +12,7 @@ export function DeleteProjectButton({ slug, name, disabled }: { slug: string; na
       }}
     >
       <input type="hidden" name="slug" value={slug} />
-      <button type="submit" className="admin-remove-item pe-danger" disabled={disabled}>Видалити</button>
+      <SubmitButton className="admin-remove-item pe-danger" disabled={disabled} pending="Видаляю…">Видалити</SubmitButton>
     </form>
   );
 }

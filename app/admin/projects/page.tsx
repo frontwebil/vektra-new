@@ -7,6 +7,7 @@ import { logoutAction } from "@/app/admin/actions";
 import { createProjectAction, moveProjectAction, togglePublishedAction } from "./actions";
 import { ProjectEditor } from "./ProjectEditor";
 import { DeleteProjectButton } from "./DeleteProjectButton";
+import { SubmitButton } from "./SubmitButton";
 import "../admin.css";
 import "./projects.css";
 
@@ -82,7 +83,7 @@ export default async function AdminProjectsPage({ searchParams }: { searchParams
               <h3>Новий проєкт</h3>
               <label className="admin-editor-field">Назва<input name="name" required placeholder="Brand Name" /></label>
               <label className="admin-editor-field">Адреса<input name="slug" required pattern="[a-z0-9]+(-[a-z0-9]+)*" placeholder="brand-name" /></label>
-              <button className="admin-add-item" type="submit" disabled={!fromDb}>+ Створити з шаблону</button>
+              <SubmitButton className="admin-add-item" disabled={!fromDb} pending="Створюю…">+ Створити з шаблону</SubmitButton>
             </form>
           </aside>
 

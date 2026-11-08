@@ -5,6 +5,7 @@ import type { CaseStudy, Media, SolutionLayout, SolutionModule, SystemCell } fro
 import { ILLUSTRATIONS, type IllustrationName } from "@/lib/illustrations";
 import { PROJECT_CATEGORIES, templateSection, type CaseDoc, type OptionalSection, type ProjectDoc } from "@/lib/project-docs";
 import { saveProjectAction } from "./actions";
+import { SaveState, SubmitButton } from "./SubmitButton";
 import { Check, CsvField, Field, ImageField, ItemsField, LinesField, ListEditor, MediaField, RichField, Row, Select } from "./fields";
 
 type Props = { slug: string; published: boolean; initial: ProjectDoc; disabled?: boolean };
@@ -71,8 +72,8 @@ export function ProjectEditor({ slug: initialSlug, published: initialPublished, 
       <div className="pe-bar">
         <Check label="Опубліковано на сайті" checked={published} onChange={(v) => { setPublished(v); setDirty(true); }} />
         {published && <input type="hidden" name="published" value="on" />}
-        <span>{dirty ? "Є незбережені зміни" : "Усе збережено"}</span>
-        <button className="admin-button" type="submit" disabled={disabled}>Зберегти проєкт</button>
+        <SaveState dirty={dirty} />
+        <SubmitButton disabled={disabled} pending="Зберігаю…">Зберегти проєкт</SubmitButton>
       </div>
 
       {/* ---------- Картка ---------- */}
@@ -317,8 +318,8 @@ export function ProjectEditor({ slug: initialSlug, published: initialPublished, 
       </Optional>
 
       <div className="pe-bar pe-bar--end">
-        <span>{dirty ? "Є незбережені зміни" : "Усе збережено"}</span>
-        <button className="admin-button" type="submit" disabled={disabled}>Зберегти проєкт</button>
+        <SaveState dirty={dirty} />
+        <SubmitButton disabled={disabled} pending="Зберігаю…">Зберегти проєкт</SubmitButton>
       </div>
     </form>
   );

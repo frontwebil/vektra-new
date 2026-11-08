@@ -69,3 +69,10 @@
   .pe-line { grid-template-columns: 1fr auto; }
   .pe-line select { grid-column: 1; }
 }
+
+/* Лоадер на кнопках збереження / створення / видалення */
+.pe-submit { display: inline-flex; align-items: center; justify-content: center; gap: 0.8rem; }
+.pe-submit.is-pending { opacity: 0.8 !important; cursor: progress !important; }
+.pe-spin { width: 1.4rem; height: 1.4rem; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: pe-spin 0.7s linear infinite; }
+@keyframes pe-spin { to { transform: rotate(360deg); } }
+.pe:has(.pe-submit.is-pending) .pe-group { opacity: 0.55; pointer-events: none; transition: opacity 0.2s; }
