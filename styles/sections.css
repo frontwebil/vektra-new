@@ -1471,8 +1471,7 @@ a:hover > .roll::after {
 .ar-hero__h .ln,
 .ar-quote .ln,
 .pj-cta__h .ln,
-.cs-ch__h .ln,
-.cs-res__h .ln,
+.cs-h .ln,
 .ab-tm__h .ln,
 .ab-num__h .ln,
 .ab-who__h .ln,
@@ -1513,20 +1512,6 @@ a:hover > .roll::after {
 }
 .cs-visual__il {
   inset: 4% 58% 4% 2%;
-}
-.cs-visual .media {
-  position: absolute;
-  left: 39rem;
-  top: 9rem;
-  width: 99rem;
-  height: 75rem;
-  z-index: 1;
-}
-.cs-ov__body {
-  padding-left: 3.2rem;
-}
-.cs-ov__tags {
-  margin-top: 3.2rem;
 }
 .cs-sec--ap {
   padding-bottom: 0;
