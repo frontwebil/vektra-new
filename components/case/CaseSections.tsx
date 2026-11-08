@@ -4,9 +4,10 @@ import type { CSSProperties } from "react";
 import { Illustration } from "@/components/Illustration";
 import { Lines, ProjectImage } from "@/components/sections";
 import { Arrow, Label, Tags } from "@/components/ui";
-import type { CaseStudy, CaseView, Line, Media, Rich, SolutionModule } from "@/lib/cases";
+import { REVIEW_PREVIEW_CHARS, type CaseStudy, type CaseView, type Line, type Media, type Rich, type SolutionModule } from "@/lib/cases";
 import type { Project } from "@/lib/content";
 import { CaseMedia } from "./CaseMedia";
+import { ReviewQuote } from "./ReviewQuote";
 
 const LETTERS = "ABCDEFGH";
 const pad = (i: number) => String(i).padStart(2, "0");
@@ -219,6 +220,17 @@ function SolutionBlock({ n, m }: { n: string; m: SolutionModule }) {
           <SolText n={n} m={m} />
         </article>
       );
+    case "gallery":
+      return (
+        <article className="cs-s cs-s--wide cs-s--gal">
+          <SolText n={n} m={m} />
+          <div className="cs-gal">
+            {m.media.map((x, i) => (
+              <CaseMedia key={i} m={x} sizes="(max-width: 767px) 100vw, 46vw" />
+            ))}
+          </div>
+        </article>
+      );
   }
 }
 
@@ -373,7 +385,7 @@ export function CaseTestimonial({ data }: { data: NonNullable<CaseStudy["testimo
       <div className="wrap">
         <Label className="cs-q__l">Client feedback</Label>
         <blockquote>
-          <p className="cs-q__t" data-words><RichText v={data.quote} /></p>
+          <ReviewQuote quote={data.quote} limit={REVIEW_PREVIEW_CHARS} />
           <footer className="cs-q__by" data-r>
             {data.logo && <Image src={data.logo} alt="" width={48} height={48} />}
             <div>

@@ -14,7 +14,8 @@ import {
   SectionProcess,
 } from "@/components/sections";
 import { Arrow, Crumbs, Dots, Label, Ln, Star } from "@/components/ui";
-import { PROJECTS, SERVICES, type Service } from "@/lib/content";
+import { SERVICES, type Project, type Service } from "@/lib/content";
+import { getProjects } from "@/lib/projects";
 import {
   getServicePageData,
   type ServiceSectionKey,
@@ -94,13 +95,15 @@ function Hero({
 function FullServicePage({
   s,
   data,
+  projects,
 }: {
   s: Service;
   data: Awaited<ReturnType<typeof getServicePageData>>;
+  projects: Project[];
 }) {
   const work = data.workSlugs
-    .map((slug) => PROJECTS.find((project) => project.slug === slug))
-    .filter((project): project is (typeof PROJECTS)[number] =>
+    .map((slug) => projects.find((project) => project.slug === slug))
+    .filter((project): project is Project =>
       Boolean(project),
     );
   const sections: Record<ServiceSectionKey, () => ReactNode> = {
@@ -293,6 +296,6 @@ export default async function Page({ params }: Props) {
   const { slug } = await params;
   const s = SERVICES.find((x) => x.slug === slug);
   if (!s) notFound();
-  const data = await getServicePageData(s);
-  return <FullServicePage s={s} data={data} />;
+  const [data, projects] = await Promise.all([getServicePageData(s), getProjects()]);
+  return <FullServicePage s={s} data={data} projects={projects} />;
 }

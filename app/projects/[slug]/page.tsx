@@ -16,18 +16,20 @@ import {
   CaseTestimonial,
 } from "@/components/case/CaseSections";
 import { Crumbs } from "@/components/ui";
-import { CASE_TEMPLATE, caseIndex, caseSlugs, getCase, nextProject, type CaseView } from "@/lib/cases";
+import { CASE_TEMPLATE, type CaseView } from "@/lib/cases";
+import { getCasePage, projectSlugs } from "@/lib/projects";
 
 type Props = { params: Promise<{ slug: string }> };
 
-export function generateStaticParams() {
-  return caseSlugs().map((slug) => ({ slug }));
+export async function generateStaticParams() {
+  return (await projectSlugs()).map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const c = getCase(slug);
-  if (!c) return {};
+  const page = await getCasePage(slug);
+  if (!page) return {};
+  const { c } = page;
   return {
     title: `Кейс ${c.name}`,
     description: c.description,
@@ -55,8 +57,9 @@ function sections(c: CaseView): ((n: string) => ReactNode)[] {
 
 export default async function Page({ params }: Props) {
   const { slug } = await params;
-  const c = getCase(slug);
-  if (!c) notFound();
+  const page = await getCasePage(slug);
+  if (!page) notFound();
+  const { c, index, next } = page;
 
   const body = sections(c);
   const num = (i: number) => String(i).padStart(2, "0");
@@ -64,11 +67,11 @@ export default async function Page({ params }: Props) {
   return (
     <>
       <div className="cs-crumbs"><Crumbs items={[{ label: "Головна", href: "/" }, { label: "Проєкти", href: "/projects" }, { label: c.name }]} /></div>
-      <CaseHero c={c} index={caseIndex(c)} />
+      <CaseHero c={c} index={index} />
       {body.map((render, i) => render(num(i + 1)))}
       {c.testimonial && <CaseTestimonial data={c.testimonial} />}
       <CaseInfo n={num(body.length + 1)} c={c} />
-      <CaseNext p={nextProject(c)} />
+      {next && <CaseNext p={next} />}
     </>
   );
 }

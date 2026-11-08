@@ -4,8 +4,10 @@ import { DotMatrix, ServicesPanel } from "@/components/interactive";
 import { Banner, Lines, SectionCta, SectionFaq, SectionHead, SectionProcess, SectionReviews, SelectedWork } from "@/components/sections";
 import { Chars, Dots, Mark, Star, TextLink } from "@/components/ui";
 import { APPROACH, STATS } from "@/lib/content";
+import { getProjects } from "@/lib/projects";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const projects = await getProjects();
   return (
     <>
       <section className="sec g4 hh" data-hero>
@@ -93,7 +95,7 @@ export default function HomePage() {
       </section>
 
       <section className="sec g2 hw">
-        <div className="wrap"><SelectedWork /></div>
+        <div className="wrap"><SelectedWork projects={projects} /></div>
         <Banner>
           <Lines className="h2 hw__h" lines={[{ t: "Кожен проєкт" }, { t: "має свій напрямок.", dim: true, cls: "hw__i1" }, { t: "Ми допомагаємо" }, { t: "його знайти", dim: true, cls: "hw__i2" }]} />
           <div className="hw__go" data-r><TextLink href="/projects">Переглянути проєкти</TextLink></div>

@@ -98,6 +98,7 @@ export default async function AdminPage() {
           <p>Час у часовому поясі Europe/Chisinau · IP зберігаються {visitRetentionDays} днів</p>
         </div>
         <Link className="admin-service-shortcut" href="/admin/services">Редагувати сторінки послуг <span>↗</span></Link>
+        <Link className="admin-service-shortcut" href="/admin/projects">Редагувати проєкти й кейси <span>↗</span></Link>
 
         {setupMessage ? (
           <div className="admin-notice"><b>Потрібне налаштування бази</b><p>{setupMessage}</p></div>

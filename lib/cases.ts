@@ -62,8 +62,9 @@ export type Media =
  * device    — сцена з ноутбуком і телефоном на панелі з частинками;        media[0] desktop, media[1] mobile
  * closeup   — великий кадрований фрагмент, текст закріплений збоку;        media[0]
  * cinematic — медіа від краю до краю сторінки, мінімум тексту;             media[0]
+ * gallery   — сітка з будь-якої кількості фото / відео, текст рядком над нею; media[0…n]
  */
-export type SolutionLayout = "wide" | "split" | "pair" | "device" | "closeup" | "cinematic";
+export type SolutionLayout = "wide" | "split" | "pair" | "device" | "closeup" | "cinematic" | "gallery";
 
 export type SolutionModule = {
   layout: SolutionLayout;
@@ -369,12 +370,16 @@ export const CASE_TEMPLATE: CaseStudy = {
   },
 };
 
-/* ---------- Доступ ------------------------------------------------------- */
+/* ---------- Статичні дані за замовчуванням ------------------------------- */
 
-const isDev = process.env.NODE_ENV !== "production";
+/**
+ * Скільки символів відгуку показувати до кнопки «Читати повний відгук».
+ * Довший відгук обрізається по слову й отримує кнопку, коротший показується повністю.
+ */
+export const REVIEW_PREVIEW_CHARS = 400;
 
 /** Короткий кейс із карточки проєкту, поки повний CaseStudy не заповнений. */
-function brief(p: Project): CaseView {
+export function brief(p: Project): CaseView {
   const words = p.name.split(" ");
   const review = REVIEWS.findIndex((r) => r.logo.includes(p.slug.split("-")[0]));
   return {
@@ -388,48 +393,20 @@ function brief(p: Project): CaseView {
       services: p.services.split(", "),
       platform: "Web",
     },
-    hero: { media: cover(p), illustration: p.slug === "clave-shop" ? "knot" : "sphere" },
+    hero: { media: cover(p) },
     overview: { headline: [{ t: "Що зробили" }], body: [[{ t: `${p.lead} ` }, { t: p.rest, dim: true }]], tags: p.tags },
     testimonial: review >= 0 ? fromReview(review) : undefined,
   };
 }
 
-export function getCase(slug: string): CaseView | null {
-  if (slug === CASE_TEMPLATE.slug) return isDev ? CASE_TEMPLATE : null;
-  const full = CASES.find((c) => c.slug === slug);
-  if (full) return full;
-  const p = PROJECTS.find((x) => x.slug === slug);
-  return p ? brief(p) : null;
-}
-
-export function caseSlugs() {
-  return [...PROJECTS.map((p) => p.slug), ...(isDev ? [CASE_TEMPLATE.slug] : [])];
-}
-
 /**
- * Порядок кейсів, як на сторінці /projects ([ 01 / 03 ] …). Від нього залежать
- * номер у мітці [ PROJECT / 01 ] і блок Next project. Новий кейс — додайте slug сюди.
+ * Початковий порядок проєктів. Використовується лише для першого заповнення бази
+ * та як запасний варіант, якщо база недоступна. Далі порядок задається в адмінці.
  */
 export const CASE_ORDER = ["pumplab", "clave-shop", "softh-cto"];
 
-/** Усі проєкти в порядку CASE_ORDER; проєкти, яких там немає, — у кінці. */
+/** Статичні проєкти в порядку CASE_ORDER; ті, яких там немає, — у кінці. */
 export const orderedProjects = (): Project[] => [
   ...CASE_ORDER.map((s) => PROJECTS.find((p) => p.slug === s)).filter((p): p is Project => Boolean(p)),
   ...PROJECTS.filter((p) => !CASE_ORDER.includes(p.slug)),
 ];
-
-export function caseIndex(c: CaseView) {
-  if (c.index) return c.index;
-  const i = orderedProjects().findIndex((p) => p.slug === c.slug);
-  return String(i + 1).padStart(2, "0");
-}
-
-export function nextProject(c: CaseView): Project {
-  const list = orderedProjects();
-  if (c.next) {
-    const n = list.find((p) => p.slug === c.next);
-    if (n) return n;
-  }
-  const i = list.findIndex((p) => p.slug === c.slug);
-  return list[(i + 1) % list.length];
-}

@@ -389,6 +389,7 @@
   .cs-ov{gap:2.4rem}
   .cs-lead{margin:0 0 4rem}
   .cs-s--wide .cs-s__t,.cs-s--cine .cs-s__t{grid-template-columns:1fr}
+  .cs-gal{grid-template-columns:1fr;gap:1.6rem}
   .cs-stage{padding:2rem}
   .cs-dev__m{width:30%}
   .cs-xp{grid-template-columns:1fr}

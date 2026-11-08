@@ -5,7 +5,7 @@ import { Illustration } from "./Illustration";
 import { RequestButton } from "./RequestButton";
 import { FaqList, ReviewsCarousel } from "./interactive";
 import { Arrow, Dots, Label, Ln, Star, Tags } from "./ui";
-import { FAQ, PROCESS, PROJECTS, type Project } from "@/lib/content";
+import { FAQ, PROCESS, type Project } from "@/lib/content";
 import type { IllustrationName } from "@/lib/illustrations";
 
 type Line = { t: string; dim?: boolean; cls?: string };
@@ -122,15 +122,15 @@ export function ProjectImage({ p, className = "", priority, sizes = "(max-width:
 }
 
 /** Картки портфоліо наїжджають одна на одну під час скролу. */
-export function SelectedWork() {
+export function SelectedWork({ projects }: { projects: Project[] }) {
   return (
     <div className="pk">
-      {PROJECTS.map((p, i) => (
+      {projects.map((p, i) => (
         <article className="pk__c" key={p.slug} style={{ zIndex: i + 1 }}>
           <div className="pk__t">
             <div className="pk__row">
               <Label>Selected work</Label>
-              <span className="idx">[ {String(i + 1).padStart(2, "0")} / {String(PROJECTS.length).padStart(2, "0")} ]</span>
+              <span className="idx">[ {String(i + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")} ]</span>
             </div>
             <div>
               <Lines lines={[{ t: p.home }]} as="h3" className="h2" />

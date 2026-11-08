@@ -1223,6 +1223,12 @@ a:hover .media img {
 .cs-q__l {
   margin-bottom: 6rem;
 }
+.cs-q__t[hidden] {
+  display: none;
+}
+.cs-q__more {
+  margin-top: 4rem;
+}
 .cs-q__by {
   display: flex;
   align-items: center;
@@ -1437,6 +1443,18 @@ a:hover .media img {
   margin: 0;
   font-size: 2.4rem;
   line-height: 2.4rem;
+}
+
+/* G — галерея: будь-яка кількість фото / відео по два в ряд; непарне останнє — на всю ширину */
+.cs-gal {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.4rem;
+  --r: 16 / 10;
+}
+.cs-gal > :last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+  --r: 132 / 66;
 }
 
 /* ---------- Experience: головний екран + зміщені другорядні ---------------- */

@@ -5,7 +5,7 @@ import { RequestButton } from "@/components/RequestButton";
 import { CatFilter } from "@/components/interactive";
 import { Banner, Lines, ProjectImage } from "@/components/sections";
 import { Arrow, Label, Star } from "@/components/ui";
-import { orderedProjects } from "@/lib/cases";
+import { getProjects } from "@/lib/projects";
 import type { Project } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -37,7 +37,7 @@ function nameLines(name: string) {
 /**
  * Картка проєкту. Сторони чергуються: is-even — текст ліворуч, фото праворуч, інші — навпаки.
  * Початкове чергування задається тут, а після фільтрації CatFilter перераховує is-even
- * лише серед видимих карток. Новий проєкт з'являється тут сам, щойно його додано в PROJECTS.
+ * лише серед видимих карток. Проєкти, їхній порядок і публікація керуються в адмінці /admin/projects.
  */
 function ProjectCard({ p, i }: { p: Project; i: number }) {
   return (
@@ -86,8 +86,8 @@ function ProjectCard({ p, i }: { p: Project; i: number }) {
   );
 }
 
-export default function ProjectsPage() {
-  const projects = orderedProjects();
+export default async function ProjectsPage() {
+  const projects = await getProjects();
   return (
     <>
       <section className="sec g4 pj-hero" data-hero>

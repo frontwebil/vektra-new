@@ -33,7 +33,7 @@ export function CaseVideo({ src, poster, label }: Props) {
     return () => io.disconnect();
   }, []);
 
-  const sources = typeof src === "string" ? [{ src, type: src.endsWith(".webm") ? "video/webm" : "video/mp4" }] : src;
+  const sources = typeof src === "string" ? [{ src, type: /\.webm(\?|$)/i.test(src) ? "video/webm" : "video/mp4" }] : src;
   return (
     <video ref={ref} className="cs-m__v" poster={poster} muted loop playsInline preload="none" controls={still} aria-label={label} tabIndex={still ? 0 : -1}>
       {sources.map((s) => (

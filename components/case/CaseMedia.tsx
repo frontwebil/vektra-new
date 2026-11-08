@@ -6,6 +6,20 @@ import { CaseVideo } from "./CaseVideo";
 
 type Props = { m: Media; className?: string; priority?: boolean; sizes?: string };
 
+/** Для відео з Cloudinary постер береться з першого кадру, якщо свій не задано. */
+function posterOf(src: Extract<Media, { type: "video" }>["src"], poster?: string) {
+  if (poster) return poster;
+  const url = typeof src === "string" ? src : src[0]?.src;
+  if (!url || !/res\.cloudinary\.com\/[^/]+\/video\/upload\//.test(url)) return undefined;
+  return url.replace("/video/upload/", "/video/upload/so_0/").replace(/\.[a-z0-9]+(\?.*)?$/i, ".jpg");
+}
+
+/** Відео з Cloudinary завжди віддаємо як mp4: Cloudinary перекодує .mov / .avi, які браузер не відтворить. */
+function playable(src: Extract<Media, { type: "video" }>["src"]) {
+  if (typeof src !== "string" || !/res\.cloudinary\.com\/[^/]+\/video\/upload\//.test(src)) return src;
+  return src.replace(/\.(mov|avi|mkv|m4v|wmv|flv|3gp)(\?.*)?$/i, ".mp4");
+}
+
 /**
  * Один слот під будь-яке медіа кейсу. Пропорції задає ratio або контейнер (змінна --r),
  * тож місце резервується до завантаження. Шторка появи та повільний зум — спільні для сайту (data-media).
@@ -34,7 +48,7 @@ export function CaseMedia({ m, className = "", priority, sizes = "(max-width: 76
     case "video":
       return (
         <div className={`media cs-m ${className}`} style={style} data-media>
-          <CaseVideo src={m.src} poster={m.poster} label={m.alt} />
+          <CaseVideo src={playable(m.src)} poster={posterOf(m.src, m.poster)} label={m.alt} />
           {cap}
         </div>
       );
