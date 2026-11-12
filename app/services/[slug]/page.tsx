@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/site";
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -33,7 +34,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const s = SERVICES.find((x) => x.slug === slug);
-  return s ? { title: s.name, description: `${s.lead} ${s.rest}` } : {};
+  return s ? pageMeta({ title: s.name, description: `${s.lead} ${s.rest}`, path: `/services/${s.slug}` }) : {};
 }
 
 function Hero({

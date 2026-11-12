@@ -1,0 +1,262 @@
+/* ======================= Блог: каталог і стаття з адмінки =================== */
+
+/* ---------- Каталог ---------- */
+.bl-bar {
+  display: grid;
+  gap: 3.2rem;
+  margin-top: 10rem;
+  padding: 3.2rem 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.bl > .wrap > .bl-bar:first-child {
+  margin-top: 0;
+}
+.bl-bar__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.bl-bar__count {
+  color: var(--w40);
+  font-size: 1.4rem;
+  line-height: 1.8rem;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+/* Категорії: великі текстові вкладки замість «пілюль» */
+.bl-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem 4rem;
+}
+.bl-tab {
+  position: relative;
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding-bottom: 0.8rem;
+  color: var(--w40);
+  font-size: 3.6rem;
+  line-height: 3.6rem;
+  font-weight: 500;
+  letter-spacing: -0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color 0.3s;
+}
+.bl-tab sup {
+  font-size: 1.2rem;
+  line-height: 1.2rem;
+  letter-spacing: 0;
+  color: var(--w40);
+}
+.bl-tab::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: #fff;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s var(--ease);
+}
+.bl-tab:hover {
+  color: #fff;
+}
+.bl-tab.is-on {
+  color: #fff;
+}
+.bl-tab.is-on::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Сітка статей: однакові картки, три в ряд */
+.bl-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-left: 1px solid var(--line2);
+}
+.bl-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--line2);
+  border-bottom: 1px solid var(--line);
+  transition: background 0.4s;
+}
+.bl-card:hover {
+  background: #050505;
+}
+.bl-card__v {
+  position: relative;
+  height: 28rem;
+  overflow: hidden;
+  border-bottom: 1px solid var(--line2);
+}
+.bl-card__b {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  flex: 1;
+  padding: 2.4rem 2.4rem 3.2rem;
+}
+.bl-card__t {
+  font-size: 2.8rem;
+  line-height: 3rem;
+}
+.bl-card__p {
+  color: var(--w50);
+  font-size: 1.6rem;
+  line-height: 2.4rem;
+}
+.bl-card__go {
+  margin-top: auto;
+  padding-top: 1.6rem;
+  align-self: flex-start;
+}
+.bl-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s var(--ease);
+}
+.bl-card:hover .bl-img,
+.bl-feat:hover .bl-img {
+  transform: scale(1.03);
+}
+.bl-empty {
+  display: grid;
+  justify-items: start;
+  gap: 2.4rem;
+  padding: 8rem 0 10rem;
+  color: var(--w50);
+  font-size: 1.8rem;
+  line-height: 2.8rem;
+}
+
+/* ---------- Заголовки з адмінки ---------- */
+/* Рядки набирають у редакторі, тож довгий рядок має переноситися, а не вилазити за край */
+.ar-hero .ar-hero__h .ln,
+.ar-article .ar-quote .ln,
+.ar-cta .ar-cta__in .ln,
+.bl .bl-feat__t .ln {
+  white-space: normal;
+  text-wrap: balance;
+}
+.bl .bl-feat__t {
+  right: 3.2rem;
+}
+
+/* ---------- Стаття ---------- */
+.ar-visual__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.ar-article .sect:last-child {
+  padding-bottom: 10rem;
+}
+.sect--intro {
+  padding-bottom: 4rem;
+}
+.prose a {
+  color: #fff;
+  text-decoration: underline;
+  text-decoration-color: var(--w40);
+  text-underline-offset: 0.3em;
+  transition: text-decoration-color 0.3s;
+}
+.prose a:hover {
+  text-decoration-color: #fff;
+}
+.prose-ol {
+  margin: 2.4rem 0;
+  counter-reset: li;
+}
+.prose-ol li {
+  position: relative;
+  padding: 1.2rem 0 1.2rem 4rem;
+  border-top: 1px solid var(--line2);
+  counter-increment: li;
+}
+.prose-ol li:last-child {
+  border-bottom: 1px solid var(--line2);
+}
+.prose-ol li::before {
+  content: counter(li, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 1.2rem;
+  color: var(--w40);
+  font-size: 1.4rem;
+}
+.fig--photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+}
+.ar-cta__r .dim p + p {
+  margin-top: 1.2rem;
+}
+
+/* ---------- Адаптив ---------- */
+@media (max-width: 1199px) {
+  .bl-bar {
+    margin-top: 6rem;
+  }
+  .bl-tab {
+    font-size: 2.8rem;
+    line-height: 2.8rem;
+  }
+  .bl-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .ar-body--cont .ar-toc {
+    display: none;
+  }
+}
+@media (max-width: 767px) {
+  .bl-tabs {
+    flex-wrap: nowrap;
+    gap: 2.4rem;
+    overflow-x: auto;
+    margin: 0 calc(var(--m) * -1);
+    padding: 0 var(--m);
+    scrollbar-width: none;
+  }
+  .bl-tabs::-webkit-scrollbar {
+    display: none;
+  }
+  .bl-tab {
+    font-size: 2.4rem;
+    line-height: 2.4rem;
+  }
+  .bl-list {
+    grid-template-columns: 1fr;
+    border-left: 0;
+  }
+  .bl-card {
+    border-right: 0;
+  }
+  .bl-card__v {
+    height: 24rem;
+  }
+  .bl-card__b {
+    padding: 2rem 0 2.8rem;
+  }
+  .bl-card__t {
+    font-size: 2.4rem;
+    line-height: 2.6rem;
+  }
+}

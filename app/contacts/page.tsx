@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/site";
 import { Illustration } from "@/components/Illustration";
 import { ContactForm } from "@/components/interactive";
 import { Lines } from "@/components/sections";
 import { Arrow, Label, Star } from "@/components/ui";
 import { CONTACT } from "@/lib/content";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Контакти",
   description: "Розкажіть, що потрібно створити, змінити або покращити.",
-};
+  path: "/contacts",
+});
 
 export default function ContactsPage() {
   const rows = [

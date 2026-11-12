@@ -42,3 +42,12 @@ model ProjectEntry {
 
   @@index([position])
 }
+
+/// Статті блогу: метадані + тіло з блоків у content (див. lib/blog-docs.ts).
+model BlogPost {
+  slug      String   @id @db.VarChar(120)
+  published Boolean  @default(false)
+  content   Json
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @db.Timestamptz(3)
+}

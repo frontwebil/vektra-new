@@ -18,6 +18,7 @@ import {
 import { Crumbs } from "@/components/ui";
 import { CASE_TEMPLATE, type CaseView } from "@/lib/cases";
 import { getCasePage, projectSlugs } from "@/lib/projects";
+import { pageMeta } from "@/lib/site";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -30,9 +31,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const page = await getCasePage(slug);
   if (!page) return {};
   const { c } = page;
+  const media = c.hero.media;
   return {
-    title: `Кейс ${c.name}`,
-    description: c.description,
+    ...pageMeta({
+      title: `Кейс ${c.name}`,
+      description: c.description,
+      path: `/projects/${slug}`,
+      ...(media.type === "image" ? { image: media.src, imageAlt: media.alt } : {}),
+    }),
     ...(slug === CASE_TEMPLATE.slug ? { robots: { index: false, follow: false } } : {}),
   };
 }

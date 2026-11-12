@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/site";
 import Image from "next/image";
 import { Illustration } from "@/components/Illustration";
 import { RequestButton } from "@/components/RequestButton";
@@ -6,11 +7,11 @@ import { DotMatrix, ExpertiseList } from "@/components/interactive";
 import { Lines, SectionReviews } from "@/components/sections";
 import { Label, Star } from "@/components/ui";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Про нас",
-  description:
-    "Vektra — digital-агенція, що поєднує стратегію, дизайн і технології.",
-};
+  description: "Vektra — digital-агенція, що поєднує стратегію, дизайн і технології.",
+  path: "/about",
+});
 
 const PRINCIPLES = [
   {

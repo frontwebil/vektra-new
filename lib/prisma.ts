@@ -3,10 +3,13 @@ import { PrismaClient } from "@/generated/prisma/client";
 
 const globalForPrisma = globalThis as typeof globalThis & {
   prisma?: PrismaClient;
+  prismaClass?: typeof PrismaClient;
 };
 
 export function getPrisma() {
-  if (globalForPrisma.prisma) return globalForPrisma.prisma;
+  // У dev після `prisma generate` модуль клієнта перезавантажується з новим класом:
+  // старий екземпляр не знає нових моделей, тож створюємо клієнт заново
+  if (globalForPrisma.prisma && globalForPrisma.prismaClass === PrismaClient) return globalForPrisma.prisma;
 
   const connectionString = process.env.DATABASE_URL;
   if (!connectionString) {
@@ -16,6 +19,10 @@ export function getPrisma() {
   const adapter = new PrismaPg({ connectionString });
   const prisma = new PrismaClient({ adapter });
 
-  if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
+  if (process.env.NODE_ENV !== "production") {
+    void globalForPrisma.prisma?.$disconnect().catch(() => undefined);
+    globalForPrisma.prisma = prisma;
+    globalForPrisma.prismaClass = PrismaClient;
+  }
   return prisma;
 }

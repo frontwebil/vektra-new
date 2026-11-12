@@ -2,26 +2,43 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Illustration } from "@/components/Illustration";
 import { RequestButton } from "@/components/RequestButton";
-import { CatFilter } from "@/components/interactive";
 import { Lines } from "@/components/sections";
 import { Arrow, Label, Star } from "@/components/ui";
-import { ARTICLES, ARTICLE_SLUG } from "@/lib/content";
+import { BLOG_CATEGORIES, categoryLabel, formatDate, isCategory, readMinutes, type BlogRecord } from "@/lib/blog-docs";
+import { getPosts } from "@/lib/blog";
+import { pageMeta } from "@/lib/site";
+import "@/styles/blog.css";
 
-export const metadata: Metadata = {
+// Canonical завжди /blog: відфільтровані списки не конкурують з основним у пошуку
+export const metadata: Metadata = pageMeta({
   title: "Блог",
   description: "Пишемо про дизайн, розробку, брендинг і digital-продукти.",
-};
+  path: "/blog",
+});
 
-const FILTERS = [
-  { key: "all", label: "All" },
-  { key: "design", label: "Design" },
-  { key: "development", label: "Development" },
-  { key: "branding", label: "Branding" },
-  { key: "digital", label: "Digital" },
-  { key: "business", label: "Business" },
-];
+type Search = { category?: string };
 
-export default function BlogPage() {
+function articlesWord(n: number) {
+  const d = n % 10;
+  const dd = n % 100;
+  if (d === 1 && dd !== 11) return "стаття";
+  if (d >= 2 && d <= 4 && (dd < 12 || dd > 14)) return "статті";
+  return "статей";
+}
+
+export default async function BlogPage({ searchParams }: { searchParams: Promise<Search> }) {
+  const { category: raw } = await searchParams;
+  const active = isCategory(raw) ? raw : null;
+  const posts = await getPosts();
+
+  const counts = new Map<string, number>();
+  posts.forEach((p) => counts.set(p.doc.category, (counts.get(p.doc.category) ?? 0) + 1));
+  const tabs = BLOG_CATEGORIES.filter((c) => counts.has(c.key));
+
+  // Головна стаття — лише в загальному списку
+  const featured = active ? null : posts.find((p) => p.doc.featured) ?? posts[0] ?? null;
+  const list = active ? posts.filter((p) => p.doc.category === active) : posts.filter((p) => p !== featured);
+
   return (
     <>
       <section className="sec g4 bl-hero" data-hero>
@@ -32,41 +49,45 @@ export default function BlogPage() {
         <p className="bl-hero__p body18" data-r>Пишемо про дизайн, розробку, брендинг і digital-продукти — без теорії заради теорії.</p>
       </section>
 
-      <section className="sec" id="articles">
+      <section className="sec bl" id="articles">
         <div className="wrap">
-          <Link className="bl-feat" href={`/blog/${ARTICLE_SLUG}`} data-cats="design">
-            <div className="bl-feat__g">
-              <div className="bl-feat__v">
-                <Illustration name="lattice" className="fx bl-feat__il" density={1.3} brightness={0.8} />
-                <Lines className="h1 bl-feat__t" lines={[{ t: "Як зрозуміти," }, { t: "що сайту потрібен", dim: true }, { t: "редизайн" }]} />
-              </div>
-              <div className="bl-feat__side">
-                <div className="bl-meta" data-r><b>UX/UI</b><span>12 Oct 2026</span><span>8 min read</span></div>
-                <div className="bl-feat__b" data-r>
-                  <p>7 сигналів, які показують, що дизайн уже не підтримує потреби користувачів і задачі бізнесу.</p>
-                  <span className="lnk">Читати статтю <Arrow /></span>
-                </div>
-              </div>
+          {featured && <Featured post={featured} />}
+
+          <div className="bl-bar">
+            <div className="bl-bar__head">
+              <Label>(02) / Articles</Label>
+              <span className="bl-bar__count">{(active ? list.length : posts.length)} {articlesWord(active ? list.length : posts.length)}</span>
             </div>
-          </Link>
-
-          <div className="bl-fbar">
-            <Label>(02) / Articles</Label>
-            <CatFilter scope="#articles" label="Категорії статей" options={FILTERS} emptyText="У цій категорії матеріалів поки немає." />
+            {tabs.length > 1 && (
+              <nav className="bl-tabs" aria-label="Категорії статей">
+                <Link href="/blog" scroll={false} className={`bl-tab ${active ? "" : "is-on"}`} aria-current={active ? undefined : "page"}>
+                  Усі<sup>{posts.length}</sup>
+                </Link>
+                {tabs.map((c) => (
+                  <Link
+                    key={c.key}
+                    href={`/blog?category=${c.key}`}
+                    scroll={false}
+                    className={`bl-tab ${active === c.key ? "is-on" : ""}`}
+                    aria-current={active === c.key ? "page" : undefined}
+                  >
+                    {c.label}<sup>{counts.get(c.key)}</sup>
+                  </Link>
+                ))}
+              </nav>
+            )}
           </div>
 
-          <div className="bl-g">
-            {ARTICLES.map((a) => (
-              <Link key={a.title} className={`art art--${a.layout}`} href={`/blog/${a.slug}`} data-cats={a.key} data-r>
-                {a.form && <div className="art__v"><Illustration name={a.form} className="fx" density={a.layout === "big" ? 1.2 : 1} interactive={false} zoom={0.9} /></div>}
-                <div className="art__b">
-                  <div className="bl-meta"><b>{a.category}</b><span>{a.date}</span><span>{a.read}</span></div>
-                  <h3 className={a.layout === "c" ? "h3" : "h2"}>{a.title}</h3>
-                  {a.text && <p>{a.text}</p>}
-                </div>
-              </Link>
-            ))}
-          </div>
+          {list.length > 0 ? (
+            <div className="bl-list">
+              {list.map((p) => <Card key={p.slug} post={p} />)}
+            </div>
+          ) : featured ? null : (
+            <div className="bl-empty">
+              <p>{posts.length ? "У цій категорії статей поки немає." : "Перші статті вже готуються."}</p>
+              {active && <Link className="lnk" href="/blog" scroll={false}>Усі статті <Arrow /></Link>}
+            </div>
+          )}
         </div>
       </section>
 
@@ -76,5 +97,61 @@ export default function BlogPage() {
         <Lines className="d120 bl-cta__h" lines={[{ t: "Є тема," }, { t: "яку варто", dim: true }, { t: "обговорити?" }]} />
       </section>
     </>
+  );
+}
+
+function Meta({ post }: { post: BlogRecord }) {
+  return (
+    <div className="bl-meta">
+      <b>{categoryLabel(post.doc.category)}</b>
+      <span><time dateTime={post.doc.date}>{formatDate(post.doc.date)}</time></span>
+      <span>{readMinutes(post.doc)} min read</span>
+    </div>
+  );
+}
+
+function Visual({ post, className, density }: { post: BlogRecord; className: string; density: number }) {
+  const { cover } = post.doc;
+  if (cover.image) {
+    // eslint-disable-next-line @next/next/no-img-element
+    return <img className="bl-img" src={cover.image} alt={cover.imageAlt ?? ""} loading="lazy" decoding="async" />;
+  }
+  return <Illustration name={cover.illustration} className={`fx ${className}`} density={density} brightness={0.8} interactive={false} />;
+}
+
+function Featured({ post }: { post: BlogRecord }) {
+  const lines = post.doc.headline.length ? post.doc.headline : [{ t: post.doc.title }];
+  return (
+    <Link className="bl-feat" href={`/blog/${post.slug}`}>
+      <div className="bl-feat__g">
+        <div className="bl-feat__v">
+          <Visual post={post} className="bl-feat__il" density={1.3} />
+          <Lines className="h1 bl-feat__t" lines={lines} />
+        </div>
+        <div className="bl-feat__side">
+          <div data-r><Meta post={post} /></div>
+          <div className="bl-feat__b" data-r>
+            {post.doc.excerpt && <p>{post.doc.excerpt}</p>}
+            <span className="lnk">Читати статтю <Arrow /></span>
+          </div>
+        </div>
+      </div>
+    </Link>
+  );
+}
+
+function Card({ post }: { post: BlogRecord }) {
+  return (
+    <Link className="bl-card" href={`/blog/${post.slug}`} data-r>
+      <div className="bl-card__v">
+        <Visual post={post} className="bl-card__il" density={1} />
+      </div>
+      <div className="bl-card__b">
+        <Meta post={post} />
+        <h3 className="h3 bl-card__t">{post.doc.title}</h3>
+        {post.doc.excerpt && <p className="bl-card__p">{post.doc.excerpt}</p>}
+        <span className="lnk bl-card__go">Читати <Arrow /></span>
+      </div>
+    </Link>
   );
 }

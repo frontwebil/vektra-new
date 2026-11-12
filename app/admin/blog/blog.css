@@ -1,0 +1,23 @@
+/* Редактор статей: конструктор блоків */
+.be-blocks { display: grid; gap: 1.2rem; }
+.be-empty { color: #8b8e8d; font-size: 1.3rem; }
+.be-block { position: relative; }
+.be-block--section { border-color: #f3f3ef; }
+.be-block--section > legend { color: #f3f3ef; font-weight: 600; }
+.be-block--quote { background: #151717; }
+.be-insert {
+  justify-self: start;
+  margin-top: 0.4rem;
+  padding: 0.6rem 1rem;
+  border: 1px dashed #3a3d3c;
+  border-radius: 0.6rem;
+  background: transparent;
+  color: #8b8e8d;
+  font: inherit;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+.be-insert:hover { color: #f3f3ef; border-color: #8b8e8d; }
+.be-add { display: flex; flex-wrap: wrap; align-items: center; gap: 0.8rem; padding-top: 1.2rem; border-top: 1px solid #252727; }
+.be-add > span { color: #8b8e8d; font-size: 1.2rem; margin-right: 0.4rem; }
+.be-read { font-size: 2rem; font-weight: 500; padding-top: 0.6rem; }

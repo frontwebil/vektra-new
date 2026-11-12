@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+import { HOME_TITLE, pageMeta, SITE_DESCRIPTION } from "@/lib/site";
 import { Illustration } from "@/components/Illustration";
 import { RequestButton } from "@/components/RequestButton";
 import { DotMatrix, ServicesPanel } from "@/components/interactive";
@@ -5,6 +7,8 @@ import { Banner, Lines, SectionCta, SectionFaq, SectionHead, SectionProcess, Sec
 import { Chars, Dots, Mark, Star, TextLink } from "@/components/ui";
 import { APPROACH, STATS } from "@/lib/content";
 import { getProjects } from "@/lib/projects";
+
+export const metadata: Metadata = pageMeta({ title: HOME_TITLE, description: SITE_DESCRIPTION, path: "/" });
 
 export default async function HomePage() {
   const projects = await getProjects();

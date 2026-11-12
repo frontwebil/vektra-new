@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/site";
 import { Illustration } from "@/components/Illustration";
 import { RequestButton } from "@/components/RequestButton";
 import { Lines, PricingCards, SectionCta, SectionFaq, SectionHead, SectionProcess } from "@/components/sections";
@@ -6,10 +7,11 @@ import { Crumbs, Star, Tags, TextLink } from "@/components/ui";
 import { PRICING, SERVICES } from "@/lib/content";
 import { getServicePageData } from "@/lib/service-pages";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Послуги",
   description: "Стратегія та брендинг, UX/UI дизайн, розробка, digital, тестування й автоматизація в одній команді.",
-};
+  path: "/services",
+});
 
 export const dynamic = "force-dynamic";
 

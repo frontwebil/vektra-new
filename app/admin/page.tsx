@@ -99,6 +99,7 @@ export default async function AdminPage() {
         </div>
         <Link className="admin-service-shortcut" href="/admin/services">Редагувати сторінки послуг <span>↗</span></Link>
         <Link className="admin-service-shortcut" href="/admin/projects">Редагувати проєкти й кейси <span>↗</span></Link>
+        <Link className="admin-service-shortcut" href="/admin/blog">Редагувати статті блогу <span>↗</span></Link>
 
         {setupMessage ? (
           <div className="admin-notice"><b>Потрібне налаштування бази</b><p>{setupMessage}</p></div>

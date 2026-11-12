@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/site";
 import Link from "next/link";
 import { Illustration } from "@/components/Illustration";
 import { RequestButton } from "@/components/RequestButton";
@@ -8,11 +9,11 @@ import { Arrow, Label, Star } from "@/components/ui";
 import { getProjects } from "@/lib/projects";
 import type { Project } from "@/lib/content";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Проєкти",
-  description:
-    "Кейси Vektra: як стратегія, дизайн і технології вирішують реальні задачі бізнесу.",
-};
+  description: "Кейси Vektra: як стратегія, дизайн і технології вирішують реальні задачі бізнесу.",
+  path: "/projects",
+});
 
 const FILTERS = [
   { key: "all", label: "All" },
